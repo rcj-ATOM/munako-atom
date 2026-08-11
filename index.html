@@ -72,7 +72,7 @@
     .delay-4 { transition-delay: 0.4s; }
 
     /* --------------------------------------------------
-       ヘッダー（上下余白を最小化）
+       ヘッダー
     -------------------------------------------------- */
     header {
       position: fixed;
@@ -481,12 +481,22 @@
     }
 
     /* SUPPORT */
+    .support-sub-title {
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--accent-text);
+      letter-spacing: 1.5px;
+      margin: 10px 0 16px;
+      text-align: center;
+    }
+
     .support-container {
       display: grid;
       grid-template-columns: repeat(2, 1fr);
       gap: 16px;
       width: 100%;
       max-width: 760px;
+      margin-bottom: 32px;
     }
 
     .support-card {
@@ -514,6 +524,44 @@
       max-width: 100%;
       max-height: 50px;
       object-fit: contain;
+    }
+
+    /* ✨ 個人スポンサーのスタイル */
+    .personal-sponsor-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 14px;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .personal-sponsor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 16px 20px;
+      text-align: center;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .personal-sponsor-card:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px var(--shadow-color);
+    }
+
+    .personal-sponsor-name {
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .personal-sponsor-note {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      line-height: 1.4;
     }
 
     /* LINKS */
@@ -854,8 +902,14 @@
         height: 280px;
       }
 
+      .support-sub-title {
+        font-size: 0.9rem;
+        margin: 6px 0 12px;
+      }
+
       .support-container {
         gap: 8px;
+        margin-bottom: 20px;
       }
 
       .support-card {
@@ -865,6 +919,23 @@
 
       .support-logo {
         max-height: 32px;
+      }
+
+      .personal-sponsor-container {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
+      .personal-sponsor-card {
+        padding: 12px 8px;
+      }
+
+      .personal-sponsor-name {
+        font-size: 0.88rem;
+      }
+
+      .personal-sponsor-note {
+        font-size: 0.7rem;
       }
 
       .links-sns-grid {
@@ -1026,8 +1097,9 @@
 
   <section id="support">
     <h2 class="section-title fade-in-up">SUPPORT</h2>
-    <p class="sub-text fade-in-up delay-1">活動をご支援いただいている学校・機関様</p>
+    <p class="sub-text fade-in-up delay-1">活動をご支援・ご協力いただいている学校・機関・個人の皆様</p>
 
+    <div class="support-sub-title fade-in-up delay-1">SCHOOLS & ORGANIZATIONS</div>
     <div class="support-container">
       <div class="support-card fade-in-up delay-2" onclick="openModal('福岡県立宗像中学校', 'https://munakata-j.fku.ed.jp')">
         <img src="images/Munakata Junior High School.png" alt="福岡県立宗像中学校" class="support-logo">
@@ -1035,6 +1107,19 @@
 
       <div class="support-card fade-in-up delay-3" onclick="openModal('福岡県立宗像高等学校', 'https://munakata.fku.ed.jp')">
         <img src="images/Munakata High School.png" alt="福岡県立宗像高等学校" class="support-logo">
+      </div>
+    </div>
+
+    <div class="support-sub-title fade-in-up delay-2">PERSONAL SPONSORS</div>
+    <div class="personal-sponsor-container">
+      <div class="personal-sponsor-card fade-in-up delay-3">
+        <div class="personal-sponsor-name">スポンサー 太郎 様</div>
+        <div class="personal-sponsor-note">個人サポーター</div>
+      </div>
+
+      <div class="personal-sponsor-card fade-in-up delay-4">
+        <div class="personal-sponsor-name">スポンサー 花子 様</div>
+        <div class="personal-sponsor-note">個人サポーター</div>
       </div>
     </div>
   </section>
@@ -1102,7 +1187,7 @@
   </section>
 
   <footer>
-    <p>&copy; Munako ATOM 2026 All Rights Reserved.</p>
+    <p>&copy; ©︎Munako ATOM 2026 All Rights Reserved.</p>
   </footer>
 
   <script>
