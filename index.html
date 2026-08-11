@@ -526,43 +526,46 @@
       object-fit: contain;
     }
 
-    /* ✨ 個人スポンサーのスタイル */
-    .personal-sponsor-container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 14px;
-      width: 100%;
-      max-width: 760px;
-    }
+    /* --- 個人スポンサーのスタイル --- */
+.personal-sponsor-container {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 760px; /* 他のカードと幅を統一 */
+  box-sizing: border-box;
+}
 
-    .personal-sponsor-card {
-      background: var(--bg-card);
-      border: 1px solid var(--border-color);
-      border-radius: 14px;
-      padding: 16px 20px;
-      text-align: center;
-      box-shadow: 0 4px 12px var(--shadow-color);
-      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-    }
+.personal-sponsor-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  padding: 18px 24px;
+  text-align: center;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  width: 100%;
+  box-sizing: border-box;
+}
 
-    .personal-sponsor-card:hover {
-      border-color: var(--accent-color);
-      transform: translateY(-3px);
-      box-shadow: 0 8px 18px var(--shadow-color);
-    }
+.personal-sponsor-card:hover {
+  border-color: var(--accent-color);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 18px var(--shadow-color);
+}
 
-    .personal-sponsor-name {
-      font-size: 1.05rem;
-      font-weight: 800;
-      color: var(--text-main);
-      margin-bottom: 4px;
-    }
+.personal-sponsor-name {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--text-main);
+  margin-bottom: 4px;
+}
 
-    .personal-sponsor-note {
-      font-size: 0.78rem;
-      color: var(--text-sub);
-      line-height: 1.4;
-    }
+.personal-sponsor-note {
+  font-size: 0.82rem;
+  color: var(--text-sub);
+  line-height: 1.4;
+}
 
     /* LINKS */
     .links-sns-grid {
@@ -926,18 +929,16 @@
         gap: 8px;
       }
 
-      .personal-sponsor-card {
-        padding: 12px 8px;
+            .personal-sponsor-card {
+          padding: 14px 16px;
+        }
+        .personal-sponsor-name {
+          font-size: 0.95rem;
+        }
+        .personal-sponsor-note {
+          font-size: 0.75rem;
+        }
       }
-
-      .personal-sponsor-name {
-        font-size: 0.88rem;
-      }
-
-      .personal-sponsor-note {
-        font-size: 0.7rem;
-      }
-
       .links-sns-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
@@ -973,7 +974,7 @@
         justify-content: center;
         box-sizing: border-box;
       }
-    }
+    
   </style>
 </head>
 <body>
@@ -1111,11 +1112,14 @@
     </div>
 
     <div class="support-sub-title fade-in-up delay-2">PERSONAL SPONSORS</div>
-    <div class="personal-sponsor-container">
-      <div class="personal-sponsor-card fade-in-up delay-3">
-        <div class="personal-sponsor-name">スポンサー 松下　悟士 様</div>
-        <div class="personal-sponsor-note">個人サポーター</div>
-      </div>
+<div class="personal-sponsor-container">
+  
+  <div class="personal-sponsor-card fade-in-up delay-3">
+    <div class="personal-sponsor-name">松下　悟士 様</div>
+    <div class="personal-sponsor-note">個人サポーター / ご支援</div>
+  </div>
+
+  </div>
 
   </section>
 
