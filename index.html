@@ -644,168 +644,173 @@
     }
 
     /* --------------------------------------------------
-       📱 スマホ専用UI（超コンパクト・はみ出し完全対応）
+       📱 スマホ専用UI（2行メニュー / カード2列化 / グリッド表示）
     -------------------------------------------------- */
     @media (max-width: 768px) {
+      /* ヘッダー：メニューを折り返して2行で配置 */
       header {
-        padding: 6px 10px;
+        padding: 8px 12px;
       }
 
       .logo-img {
-        height: 32px;
+        height: 36px;
       }
 
       .header-right {
-        gap: 4px;
+        gap: 8px;
       }
 
       nav {
-        gap: 1px;
+        display: flex;
+        flex-wrap: wrap; /* 2行に折り返す設定 */
+        justify-content: flex-end;
+        max-width: 200px; /* 適切な幅で自動折り返し */
+        gap: 2px 4px;
       }
 
       nav a {
-        font-size: 0.58rem;
-        padding: 3px 4px;
-        letter-spacing: -0.5px;
+        font-size: 0.65rem;
+        padding: 2px 6px;
+        letter-spacing: 0;
       }
 
       .theme-toggle-btn {
-        font-size: 0.58rem;
-        padding: 3px 6px;
+        font-size: 0.65rem;
+        padding: 4px 8px;
       }
 
       .hero-section {
-        padding-top: 56px;
-      }
-
-      .hero-image-container {
-        padding: 0 10px;
+        padding-top: 70px;
       }
 
       section {
-        padding: 32px 12px;
+        padding: 28px 10px;
       }
 
       .section-title {
-        font-size: 1.4rem;
-        letter-spacing: 1.5px;
+        font-size: 1.5rem;
+        letter-spacing: 1px;
         margin-bottom: 8px;
       }
 
       .sub-text {
         font-size: 0.8rem;
-        line-height: 1.5;
         margin-bottom: 16px;
       }
 
-      .member-title {
-        font-size: 1rem;
-        margin: 24px 0 16px;
-      }
-
+      /* TEAM MEMBER：縦並びを解除して横に2枚並べる */
       .member-container {
-        grid-template-columns: 1fr;
-        gap: 12px;
+        display: grid;
+        grid-template-columns: repeat(2, 1fr); /* 常に2列固定 */
+        gap: 10px;
+        width: 100%;
+        box-sizing: border-box;
       }
 
       .member-card {
-        padding: 16px 12px;
+        padding: 14px 8px;
       }
 
       .member-avatar {
-        width: 60px;
-        height: 60px;
-        margin-bottom: 10px;
+        width: 52px;
+        height: 52px;
+        margin-bottom: 8px;
       }
 
-      .news-item {
-        padding: 12px 14px;
-        gap: 8px;
+      .member-name {
+        font-size: 0.95rem;
       }
 
-      .news-date {
+      .member-role {
+        font-size: 0.7rem;
+        margin-bottom: 6px;
+      }
+
+      .member-bio {
         font-size: 0.75rem;
-        min-width: 70px;
+        line-height: 1.3;
       }
 
-      .news-tag {
-        font-size: 0.65rem;
-        padding: 2px 6px;
-        min-width: 48px;
+      .member-link-btn {
+        font-size: 0.68rem;
+        padding: 4px 10px;
+        margin-top: 8px;
       }
 
-      .news-title {
-        font-size: 0.82rem;
+      /* BLOG & MEDIA：1枚で画面を埋め尽くさないよう2列グリッド化 */
+      .blog-wrapper,
+      .media-embed-wrapper {
+        height: 320px; /* 埋め込みエリアの縦幅をコンパクトに固定 */
       }
 
+      /* SUPPORT：学校カードも2列横並び */
       .support-container {
-        gap: 12px;
-      }
-
-      .support-card {
-        padding: 10px 16px;
-        height: 70px;
-      }
-
-      .support-logo {
-        max-height: 44px;
-      }
-
-      .links-sns-grid {
+        display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 10px;
       }
 
+      .support-card {
+        height: 64px;
+        padding: 8px;
+        max-width: 100%;
+      }
+
+      .support-logo {
+        max-height: 36px;
+      }
+
+      /* LINKS (SNS) */
+      .links-sns-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+      }
+
       .sns-btn {
-        padding: 12px 8px;
-        font-size: 0.8rem;
-        gap: 6px;
-        border-radius: 12px;
+        padding: 10px 6px;
+        font-size: 0.78rem;
+        gap: 4px;
+        border-radius: 10px;
       }
 
       .sns-btn svg {
+        width: 16px;
+        height: 16px;
+      }
+
+      /* CONTACT */
+      .contact-card {
+        padding: 16px 10px;
+      }
+
+      .contact-icon-wrapper {
+        width: 40px;
+        height: 40px;
+        margin-bottom: 8px;
+      }
+
+      .contact-icon-wrapper svg {
         width: 18px;
         height: 18px;
       }
 
-      .contact-card {
-        padding: 20px 14px;
-        border-radius: 14px;
-      }
-
-      .contact-icon-wrapper {
-        width: 48px;
-        height: 48px;
+      .contact-desc {
+        font-size: 0.78rem;
         margin-bottom: 12px;
       }
 
-      .contact-icon-wrapper svg {
-        width: 22px;
-        height: 22px;
-      }
-
-      .contact-desc {
-        font-size: 0.8rem;
-        margin-bottom: 16px;
-      }
-
       .contact-email-box {
-        flex-direction: column;
-        padding: 12px;
-        gap: 8px;
-        border-radius: 10px;
+        padding: 8px;
+        gap: 6px;
       }
 
       .contact-email-address {
-        font-size: 0.85rem;
+        font-size: 0.78rem;
       }
 
       .contact-action-btn {
-        width: 100%;
-        justify-content: center;
-        padding: 8px 12px;
-        font-size: 0.8rem;
-        box-sizing: border-box;
+        padding: 6px 10px;
+        font-size: 0.75rem;
       }
     }
   </style>
