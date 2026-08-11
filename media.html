@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <style>
+    body {
+      margin: 0;
+      padding: 10px;
+      background: transparent;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+    
+    /* 2列以上のグリッド配置 */
+    .media-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+
+    .media-card {
+      background: #ffffff;
+      border: 1px solid #e2e8f0;
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+    }
+
+      .media-img {
+      width: 100%;
+      aspect-ratio: 1 / 1;    /* 正方形の枠を確保 */
+      object-fit: contain;     /* 画像を切り取らず、枠内に全体を収める */
+      background: #000000;    /* 隙間（余白）を黒で塗りつぶす */
+      display: block;
+    }
+
+    .media-text {
+      padding: 16px;
+      font-size: 0.88rem;
+      color: #334155;
+      line-height: 1.6;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="media-grid">
+    
+    <div class="media-card">
+      <img src="media-images/post001.png" alt="投稿写真" class="media-img">
+      <div class="media-text">2027シーズンコンセプト機「DALTON_MAX」</div>
+    </div>
+
+    <div class="media-card">
+      <img src="media-images/post002.png" alt="投稿写真" class="media-img">
+      <div class="media-text">「DALTON_MAX_v1」解体図</div>
+    </div>
+
+
+    <div class="media-card">
+      <img src="media-images/post004.png" alt="投稿写真" class="media-img">
+      <div class="media-text">2024.8~2026.8 Design log</div>
+    </div>
+
+    <div class="media-card">
+      <img src="media-images/post005.png" alt="投稿写真" class="media-img">
+      <div class="media-text">Power Supply Board V1.0</div>
+
+  </div>
+
+</body>
+</html>

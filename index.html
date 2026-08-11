@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATOM - Munakata E.P.C.</title>
+  <style>
+    /* --------------------------------------------------
+       テーマ変数の定義（標準：ライトモード）
+    -------------------------------------------------- */
+    :root {
+      --bg-main: #f8fafc;
+      --bg-header: rgba(255, 255, 255, 0.85);
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-sub: #64748b;
+      --border-color: #e2e8f0;
+      --accent-color: #02677b;
+      --accent-light: #e0f2fe;
+      --accent-text: #02677b;
+      --shadow-color: rgba(0, 0, 0, 0.05);
+      --gradient-fade: linear-gradient(transparent, #f8fafc);
+    }
+
+    /* ダークモード時の変数設定 */
+    body.dark-theme {
+      --bg-main: #0d1117;
+      --bg-header: rgba(13, 17, 23, 0.85);
+      --bg-card: #1e293b;
+      --text-main: #f8fafc;
+      --text-sub: #94a3b8;
+      --border-color: rgba(255, 255, 255, 0.1);
+      --accent-color: #38bdf8;
+      --accent-light: rgba(56, 189, 248, 0.15);
+      --accent-text: #38bdf8;
+      --shadow-color: rgba(0, 0, 0, 0.4);
+      --gradient-fade: linear-gradient(transparent, #0d1117);
+    }
+
+    /* 全体設定 */
+    html {
+      scroll-behavior: smooth;
+    }
+    body {
+      background-color: var(--bg-main);
+      color: var(--text-main);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      line-height: 1.6;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    /* ヘッダー */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      padding: 12px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-sizing: border-box;
+      z-index: 100;
+      background: var(--bg-header);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border-color);
+      transition: background 0.3s ease, border-color 0.3s ease;
+    }
+
+    .logo-img {
+      height: 72px;
+      width: auto;
+      aspect-ratio: 1520 / 1035;
+      display: block;
+      object-fit: contain;
+      transition: opacity 0.2s ease;
+    }
+
+    .header-right {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    /* ナビゲーション */
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    nav a {
+      position: relative;
+      color: var(--text-sub);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 600;
+      letter-spacing: 1px;
+      padding: 8px 12px;
+      border-radius: 20px;
+      transition: color 0.3s ease;
+      z-index: 1;
+    }
+
+    nav a::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: var(--accent-color);
+      border-radius: 20px;
+      z-index: -1;
+      transform: scale(0.8);
+      opacity: 0;
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    nav a:hover {
+      color: var(--accent-color);
+    }
+
+    nav a.active {
+      color: #ffffff !important;
+    }
+
+    nav a.active::before {
+      transform: scale(1);
+      opacity: 1;
+    }
+
+    /* テーマ切り替えボタン */
+    .theme-toggle-btn {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      color: var(--text-main);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      transition: all 0.3s ease;
+      box-shadow: 0 2px 4px var(--shadow-color);
+    }
+
+    .theme-toggle-btn:hover {
+      border-color: var(--accent-color);
+    }
+
+    /* ヒーローエリア */
+    .hero-section {
+      padding-top: 110px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .hero-image-container {
+      width: 100%;
+      max-width: 1100px;
+      padding: 0 20px;
+      box-sizing: border-box;
+    }
+
+    .hero-img {
+      width: 100%;
+      height: auto;
+      display: block;
+      border-radius: 16px;
+      box-shadow: 0 12px 32px var(--shadow-color);
+      border: 1px solid var(--border-color);
+      transition: border-color 0.3s ease;
+    }
+
+    /* セクション共通 */
+    section {
+      min-height: auto;
+      padding: 50px 20px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 800;
+      letter-spacing: 3px;
+      margin: 0 0 16px 0;
+      text-align: center;
+      color: var(--text-main);
+    }
+
+    .sub-text {
+      color: var(--text-sub);
+      max-width: 540px;
+      text-align: center;
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin: 0 0 24px 0;
+    }
+
+    /* ABOUT & MEMBER */
+    .member-title {
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent-text);
+      margin: 40px 0 24px;
+      letter-spacing: 2px;
+      text-align: center;
+    }
+
+    .member-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 24px;
+      width: 100%;
+      max-width: 680px;
+    }
+
+    .member-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 32px 24px;
+      text-align: center;
+      box-shadow: 0 4px 6px -1px var(--shadow-color);
+      transition: all 0.3s ease;
+    }
+
+    .member-card:hover {
+      transform: translateY(-4px);
+      border-color: var(--accent-color);
+    }
+
+    .member-avatar {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: var(--border-color);
+      margin: 0 auto 16px;
+      object-fit: cover;
+    }
+
+    .member-name {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
+
+    .member-role {
+      font-size: 0.8rem;
+      color: var(--accent-text);
+      font-weight: 600;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    .member-bio {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      line-height: 1.5;
+    }
+
+    .member-link-btn {
+      display: inline-block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent-text);
+      background: var(--accent-light);
+      border: 1px solid var(--border-color);
+      padding: 6px 16px;
+      border-radius: 20px;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      margin-top: 16px;
+    }
+
+    .member-link-btn:hover {
+      background: var(--accent-color);
+      color: #ffffff;
+    }
+
+    /* NEWS */
+    .news-container {
+      width: 100%;
+      max-width: 760px;
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      overflow: hidden;
+      box-shadow: 0 4px 6px -1px var(--shadow-color);
+      transition: all 0.3s ease;
+    }
+
+    .news-item {
+      display: flex;
+      align-items: center;
+      padding: 20px 24px;
+      border-bottom: 1px solid var(--border-color);
+      gap: 16px;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .news-item:last-child {
+      border-bottom: none;
+    }
+
+    .news-date {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      font-weight: 600;
+      min-width: 90px;
+    }
+
+    .news-tag {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent-text);
+      background: var(--accent-light);
+      padding: 4px 10px;
+      border-radius: 12px;
+      min-width: 60px;
+      text-align: center;
+    }
+
+    .news-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-main);
+      flex-grow: 1;
+    }
+
+    /* --------------------------------------------------
+       BLOG & MEDIA 埋め込み
+    -------------------------------------------------- */
+    .blog-wrapper,
+    .media-embed-wrapper {
+      width: 100%;
+      max-width: 760px;
+      height: 480px; /* 初期表示の高さ */
+      overflow: hidden;
+      position: relative;
+      transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      border-radius: 12px;
+    }
+
+    .media-iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    /* VIEW MORE ボタン共通 */
+    .view-more-btn {
+      margin-top: 24px;
+      padding: 12px 36px;
+      background: var(--bg-card);
+      border: 2px solid var(--accent-color);
+      color: var(--accent-text);
+      font-weight: 700;
+      font-size: 0.9rem;
+      border-radius: 30px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 10px var(--shadow-color);
+    }
+
+    .view-more-btn:hover {
+      background: var(--accent-color);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    /* --------------------------------------------------
+       SUPPORT
+    -------------------------------------------------- */
+    .support-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 24px;
+      flex-wrap: wrap;
+      width: 100%;
+      max-width: 760px;
+    }
+
+    .support-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      box-shadow: 0 4px 6px -1px var(--shadow-color);
+      transition: all 0.3s ease;
+      cursor: pointer;
+      flex: 1;
+      min-width: 220px;
+      max-width: 320px;
+      height: 100px;
+      box-sizing: border-box;
+    }
+
+    .support-card:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-4px);
+    }
+
+    .support-logo {
+      max-width: 100%;
+      max-height: 60px;
+      object-fit: contain;
+    }
+
+    /* --------------------------------------------------
+       LINKS
+    -------------------------------------------------- */
+    .links-sns-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 20px;
+      max-width: 760px;
+      width: 100%;
+    }
+
+    .sns-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      padding: 22px 28px;
+      background: var(--bg-card);
+      border: 2px solid var(--border-color);
+      border-radius: 20px;
+      color: var(--text-main);
+      font-weight: 800;
+      font-size: 1.15rem;
+      text-decoration: none;
+      box-shadow: 0 6px 16px var(--shadow-color);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .sns-btn svg {
+      width: 28px;
+      height: 28px;
+      fill: currentColor;
+      flex-shrink: 0;
+    }
+
+    .sns-btn:hover {
+      border-color: var(--accent-color);
+      color: var(--accent-text);
+      transform: translateY(-6px);
+      box-shadow: 0 12px 24px -4px var(--shadow-color);
+    }
+
+    .sns-btn.btn-youtube:hover {
+      color: #ff0000;
+      border-color: #ff0000;
+    }
+    .sns-btn.btn-x:hover {
+      color: var(--text-main);
+      border-color: var(--text-main);
+    }
+    .sns-btn.btn-instagram:hover {
+      color: #e1306c;
+      border-color: #e1306c;
+    }
+    .sns-btn.btn-github:hover {
+      color: #2d43a4;
+      border-color: #2d2fa4;
+    }
+
+    /* --------------------------------------------------
+       CONTACT
+    -------------------------------------------------- */
+    /* --------------------------------------------------
+       CONTACT（モダンなデザインへ刷新）
+    -------------------------------------------------- */
+    .contact-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 40px 32px;
+      max-width: 580px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 10px 30px var(--shadow-color);
+      box-sizing: border-box;
+      position: relative;
+      overflow: hidden;
+      backdrop-filter: blur(10px);
+    }
+
+    .contact-card::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, var(--accent-color), #38bdf8);
+    }
+
+    .contact-icon-wrapper {
+      width: 64px;
+      height: 64px;
+      margin: 0 auto 20px;
+      background: var(--accent-light);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--accent-text);
+    }
+
+    .contact-icon-wrapper svg {
+      width: 30px;
+      height: 30px;
+      fill: currentColor;
+    }
+
+    .contact-desc {
+      font-size: 0.95rem;
+      color: var(--text-sub);
+      margin-bottom: 28px;
+      line-height: 1.6;
+    }
+
+    /* メールアドレスボックス（コピー機能付き風） */
+    .contact-email-box {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--bg-main);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 10px 12px 10px 20px;
+      transition: all 0.3s ease;
+      gap: 12px;
+    }
+
+    .contact-email-box:hover {
+      border-color: var(--accent-color);
+      box-shadow: 0 0 12px rgba(2, 103, 123, 0.15);
+    }
+
+    .contact-email-address {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+      font-size: 1.05rem;
+      font-weight: 600;
+      color: var(--text-main);
+      word-break: break-all;
+    }
+
+    .contact-action-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: var(--accent-color);
+      color: #ffffff !important;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+
+    .contact-action-btn:hover {
+      opacity: 0.9;
+      transform: translateY(-1px);
+    }
+
+    @media (max-width: 600px) {
+      .contact-email-box {
+        flex-direction: column;
+        padding: 16px;
+        text-align: center;
+      }
+      .contact-action-btn {
+        width: 100%;
+        justify-content: center;
+        box-sizing: border-box;
+      }
+    }
+
+    .contact-email-link {
+      display: inline-block;
+      margin-top: 16px;
+      font-size: 1.15rem;
+      font-weight: 700;
+      color: #ffffff;
+      background: var(--accent-color);
+      padding: 14px 32px;
+      border-radius: 30px;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 12px rgba(2, 103, 123, 0.3);
+    }
+
+    .contact-email-link:hover {
+      opacity: 0.9;
+      transform: translateY(-2px);
+    }
+
+    /* フッター */
+    footer {
+      padding: 40px 20px;
+      text-align: center;
+      border-top: 1px solid var(--border-color);
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      letter-spacing: 1px;
+      background: var(--bg-card);
+      transition: all 0.3s ease;
+    }
+
+    /* レスポンシブ (スマホ表示の調整) */
+    @media (max-width: 768px) {
+      header {
+        padding: 10px 12px;
+        flex-wrap: wrap; /* 必要に応じてヘッダー内を折り返し可能に */
+      }
+      
+      .logo-img {
+        height: 38px; /* ロゴサイズをやや小さくしてスペース確保 */
+      }
+      
+      .header-right {
+        gap: 6px;
+      }
+
+      nav {
+        gap: 2px;
+        flex-wrap: wrap; /* メニュー項目が多くても画面外に出ず折り返す */
+        justify-content: flex-end;
+      }
+
+      nav a {
+        font-size: 0.65rem;
+        padding: 4px 6px;
+        letter-spacing: 0; /* 文字間隔を詰めて横幅を縮小 */
+      }
+
+      .theme-toggle-btn {
+        font-size: 0.65rem;
+        padding: 4px 8px;
+      }
+
+      /* 以下は既存のレスポンシブ設定 */
+      .links-sns-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .sns-btn {
+        padding: 16px 12px;
+        font-size: 0.95rem;
+      }
+      .sns-btn svg {
+        width: 22px;
+        height: 22px;
+      }
+    }
+
+    /* ポップアップ（モーダル） */
+    .support-modal {
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      background: var(--bg-card);
+      color: var(--text-main);
+      padding: 0;
+      max-width: 400px;
+      width: 90%;
+      box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3);
+    }
+
+    .support-modal::backdrop {
+      background: rgba(0, 0, 0, 0.6);
+      backdrop-filter: blur(4px);
+    }
+
+    .modal-content {
+      padding: 28px 24px;
+      text-align: center;
+    }
+
+    .modal-title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin: 0 0 12px 0;
+      color: var(--text-main);
+    }
+
+    .modal-text {
+      font-size: 0.9rem;
+      color: var(--text-sub);
+      margin-bottom: 24px;
+      line-height: 1.5;
+    }
+
+    .modal-school-name {
+      font-weight: 700;
+      color: var(--accent-text);
+    }
+
+    .modal-btn-group {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+    }
+
+    .modal-btn {
+      padding: 10px 20px;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      transition: all 0.2s ease;
+      border: none;
+      flex: 1;
+    }
+
+    .btn-cancel {
+      background: var(--bg-main);
+      color: var(--text-sub);
+      border: 1px solid var(--border-color);
+    }
+
+    .btn-confirm {
+      background: var(--accent-color);
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="#">
+      <img src="images/logo-light.png" alt="TEAM LOGO" class="logo-img" id="JS_LOGO_IMG">
+    </a>
+    <div class="header-right">
+      <nav>
+        <a href="#about" class="nav-link">ABOUT</a>
+        <a href="#news" class="nav-link">NEWS</a>
+        <a href="#blog" class="nav-link">BLOG</a>
+        <a href="#media" class="nav-link">MEDIA</a>
+        <a href="#support" class="nav-link">SUPPORT</a>
+        <a href="#links" class="nav-link">LINKS</a>
+        <a href="#contact" class="nav-link">CONTACT</a>
+      </nav>
+      <button class="theme-toggle-btn" id="JS_THEME_BTN" onclick="toggleTheme()">
+        <span id="JS_THEME_ICON">🌙</span> <span id="JS_THEME_LABEL">DARK</span>
+      </button>
+    </div>
+  </header>
+
+  <div class="hero-section">
+    <div class="hero-image-container">
+      <img src="images/ATT_Design log v1.jpg" alt="ATOM Munakata E.P.C." class="hero-img">
+    </div>
+  </div>
+
+  <section id="about">
+    <h2 class="section-title">ABOUT US</h2>
+    <p class="sub-text">私たちは、RoboCup Junior World class Soccer Infrared チームです。<br>中学3年二人体制で機体の設計から製造・プログラムまでのすべてを行っています。</p>
+    <p class="sub-text">世界大会優勝を目標に日々開発をしています。<br>下部のブログやメディアもぜひみてください。</p>
+    <div class="member-title">TEAM MEMBER</div>
+    <div class="member-container">
+      <div class="member-card">
+        <img src="images/ATT-icon.jpg" alt="ATT" class="member-avatar">
+        <div class="member-name">ATT</div>
+        <div class="member-role">HARDWARE / PCB </div>
+        <div class="member-bio">ハードウェアデザインの全てを担当しています。</div>
+        <div><a href="https://x.com/numatta_4" target="_blank" class="member-link-btn">X</a></div>
+        <div><a href="https://note.com/lucid_loris4289" target="_blank" class="member-link-btn">Note</a></div>
+      </div>
+
+      <div class="member-card">
+        <img src="images/croissant-icon.png" alt="CROISSANT" class="member-avatar">
+        <div class="member-name">CROISSANT</div>
+        <div class="member-role">SOFTWARE</div>
+        <div class="member-bio">ソフトウェアプログラム全てを担当しています。</div>
+        <div><a href="https://x.com/TANAKA_9683" target="_blank" class="member-link-btn">X</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="news">
+    <h2 class="section-title">NEWS</h2>
+    <p class="sub-text">チームの最新お知らせ一覧です。</p>
+
+    <div class="news-container">
+      <div class="news-item">
+        <div class="news-date">2026.08.08</div>
+        <div class="news-tag">MEDIA</div>
+        <div class="news-title">2027年のコンセプト機体を公開しました。</div>
+      </div>
+      <div class="news-item">
+        <div class="news-date">2026.08.08</div>
+        <div class="news-tag">INFO</div>
+        <div class="news-title">公式Webサイトを公開しました。</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="blog">
+    <h2 class="section-title">TEAM BLOG</h2>
+    <p class="sub-text">メンバーが更新する活動記録です。</p>
+
+    <div class="blog-wrapper" id="JS_BLOG_WRAPPER">
+      <iframe src="blog-list.html" class="media-iframe" id="JS_BLOG_IFRAME"></iframe>
+    </div>
+
+    <button class="view-more-btn" id="JS_BLOG_VIEW_MORE_BTN" onclick="expandBlog()">VIEW MORE</button>
+  </section>
+
+  <section id="media">
+    <h2 class="section-title">MEDIA</h2>
+    <p class="sub-text">チームの活動ギャラリーです。</p>
+
+    <div class="media-embed-wrapper" id="JS_MEDIA_WRAPPER">
+      <iframe src="media.html" class="media-iframe" id="JS_MEDIA_IFRAME" title="Media Gallery"></iframe>
+    </div>
+
+    <button class="view-more-btn" id="JS_MEDIA_VIEW_MORE_BTN" onclick="expandMedia()">VIEW MORE</button>
+  </section>
+
+  <section id="support">
+    <h2 class="section-title">SUPPORT</h2>
+    <p class="sub-text">活動をご支援いただいている学校・機関様</p>
+
+    <div class="support-container">
+      <div class="support-card" onclick="openModal('福岡県立宗像中学校', 'https://munakata-j.fku.ed.jp')">
+        <img src="images/Munakata Junior High School.png" alt="福岡県立宗像中学校" class="support-logo">
+      </div>
+
+      <div class="support-card" onclick="openModal('福岡県立宗像高等学校', 'https://munakata.fku.ed.jp')">
+        <img src="images/Munakata High School.png" alt="福岡県立宗像高等学校" class="support-logo">
+      </div>
+    </div>
+  </section>
+
+  <dialog id="JS_SUPPORT_MODAL" class="support-modal">
+    <div class="modal-content">
+      <h3 id="JS_MODAL_TITLE" class="modal-title">外部サイトへ移動</h3>
+      <p class="modal-text"><span id="JS_MODAL_NAME" class="modal-school-name"></span> のWebサイトへ移動しますか？</p>
+      <div class="modal-btn-group">
+        <button class="modal-btn btn-cancel" onclick="closeModal()">キャンセル</button>
+        <a id="JS_MODAL_LINK" href="#" target="_blank" rel="noopener noreferrer" class="modal-btn btn-confirm" onclick="closeModal()">移動する</a>
+      </div>
+    </div>
+  </dialog>
+
+  <section id="links">
+    <h2 class="section-title">OFFICIAL LINKS</h2>
+    <p class="sub-text">チームの各種SNS・公式アカウント一覧です。</p>
+
+    <div class="links-sns-grid">
+      <a href="https://www.youtube.com/@atom-rcj" target="_blank" class="sns-btn btn-youtube">
+        <svg viewBox="0 0 24 24"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg>
+        <span>YouTube</span>
+      </a>
+
+      <a href="https://x.com/Munachu_atom" target="_blank" class="sns-btn btn-x">
+        <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        <span>X (Twitter)</span>
+      </a>
+
+      <a href="https://www.instagram.com/munachu_atom/" target="_blank" class="sns-btn btn-instagram">
+        <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+        <span>Instagram</span>
+      </a>
+
+      <a href="https://github.com/rcj-ATOM" target="_blank" class="sns-btn btn-github">
+        <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        <span>GitHub</span>
+      </a>
+    </div>
+  </section>
+    <section id="contact">
+        <h2 class="section-title">CONTACT</h2>
+        <p class="sub-text">チームへのお問い合わせ・ご協賛に関するご相談はこちら</p>
+
+        <div class="contact-card">
+          <div class="contact-icon-wrapper">
+            <svg viewBox="0 0 24 24">
+              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+            </svg>
+          </div>
+          <p class="contact-desc">ご質問や技術交流、取材・ご支援に関するご相談など、お気軽にご連絡ください。</p>
+          
+          <div class="contact-email-box">
+            <span class="contact-email-address">atom.rcj@gmail.com</span>
+            <a href="mailto:atom.rcj@gmail.com" class="contact-action-btn">
+              <span>メールを送る</span>
+              <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24">
+                <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+      </section>
+
+  <footer>
+    <p>&copy; 2026 ATOM Munakata E.P.C. All Rights Reserved.</p>
+  </footer>
+
+  <script>
+    // --------------------------------------------------
+    // 高さの動的受け取り ＆ 開閉処理（VIEW MORE）
+    // --------------------------------------------------
+    let blogFullHeight = 1200;  // 取得できるまでの初期フォールバック値
+    let mediaFullHeight = 1200;
+
+    // 子iframe（blog-list / media）からの高さ通知を受信
+    window.addEventListener('message', (event) => {
+      if (event.data && event.data.type === 'resizeBlog') {
+        blogFullHeight = event.data.height;
+        // 開いた状態でサイズ変更（ウィンドウリサイズ等）があった場合に追従
+        const wrapper = document.getElementById('JS_BLOG_WRAPPER');
+        if (wrapper.classList.contains('expanded')) {
+          wrapper.style.height = blogFullHeight + 'px';
+        }
+      }
+      if (event.data && event.data.type === 'resizeMedia') {
+        mediaFullHeight = event.data.height;
+        const wrapper = document.getElementById('JS_MEDIA_WRAPPER');
+        if (wrapper.classList.contains('expanded')) {
+          wrapper.style.height = mediaFullHeight + 'px';
+        }
+      }
+    });
+
+    // BLOG の開閉
+    function expandBlog() {
+      const wrapper = document.getElementById('JS_BLOG_WRAPPER');
+      const btn = document.getElementById('JS_BLOG_VIEW_MORE_BTN');
+      const isExpanded = wrapper.classList.toggle('expanded');
+
+      if (isExpanded) {
+        wrapper.style.height = blogFullHeight + 'px';
+        btn.textContent = 'CLOSE';
+      } else {
+        wrapper.style.height = '480px';
+        btn.textContent = 'VIEW MORE';
+      }
+    }
+
+    // MEDIA の開閉
+    function expandMedia() {
+      const wrapper = document.getElementById('JS_MEDIA_WRAPPER');
+      const btn = document.getElementById('JS_MEDIA_VIEW_MORE_BTN');
+      const isExpanded = wrapper.classList.toggle('expanded');
+
+      if (isExpanded) {
+        wrapper.style.height = mediaFullHeight + 'px';
+        btn.textContent = 'CLOSE';
+      } else {
+        wrapper.style.height = '480px';
+        btn.textContent = 'VIEW MORE';
+      }
+    }
+
+    // --------------------------------------------------
+    // テーマ＆ロゴ切り替え処理
+    // --------------------------------------------------
+    function toggleTheme() {
+      const body = document.body;
+      const icon = document.getElementById('JS_THEME_ICON');
+      const label = document.getElementById('JS_THEME_LABEL');
+      const logoImg = document.getElementById('JS_LOGO_IMG');
+      const mediaIframe = document.getElementById('JS_MEDIA_IFRAME');
+      const blogIframe = document.getElementById('JS_BLOG_IFRAME');
+
+      body.classList.toggle('dark-theme');
+      const isDark = body.classList.contains('dark-theme');
+
+      icon.textContent = isDark ? '☀️' : '🌙';
+      label.textContent = isDark ? 'LIGHT' : 'DARK';
+
+      logoImg.src = isDark ? 'images/logo-dark.png' : 'images/logo-light.png';
+
+      [mediaIframe, blogIframe].forEach(iframe => {
+        if (iframe && iframe.contentWindow) {
+          iframe.contentWindow.postMessage({ darkTheme: isDark }, '*');
+        }
+      });
+    }
+
+    // スクロール時のアクティブナビゲーション判定
+    const sections = document.querySelectorAll('section[id]');
+    const navLinks = document.querySelectorAll('nav a');
+
+    window.addEventListener('scroll', () => {
+      let current = '';
+      sections.forEach(section => {
+        const sectionTop = section.offsetTop - 200;
+        if (pageYOffset >= sectionTop) {
+          current = section.getAttribute('id');
+        }
+      });
+
+      navLinks.forEach(link => {
+        link.classList.remove('active');
+        if (link.getAttribute('href') === `#${current}`) {
+          link.classList.add('active');
+        }
+      });
+    });
+
+    // ポップアップを開く処理
+    function openModal(schoolName, url) {
+      const modal = document.getElementById('JS_SUPPORT_MODAL');
+      document.getElementById('JS_MODAL_NAME').textContent = schoolName;
+      document.getElementById('JS_MODAL_LINK').href = url;
+      modal.showModal();
+    }
+
+    // ポップアップを閉じる処理
+    function closeModal() {
+      const modal = document.getElementById('JS_SUPPORT_MODAL');
+      modal.close();
+    }
+  </script>
+</body>
+</html>
