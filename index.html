@@ -586,93 +586,115 @@
       transform: translateY(-1px);
     }
 
-    @media (max-width: 600px) {
-      .contact-email-box {
-        flex-direction: column;
-        padding: 16px;
-        text-align: center;
-      }
-      .contact-action-btn {
-        width: 100%;
-        justify-content: center;
-        box-sizing: border-box;
-      }
-    }
-
-    .contact-email-link {
-      display: inline-block;
-      margin-top: 16px;
-      font-size: 1.15rem;
-      font-weight: 700;
-      color: #ffffff;
-      background: var(--accent-color);
-      padding: 14px 32px;
-      border-radius: 30px;
-      text-decoration: none;
-      transition: all 0.3s ease;
-      box-shadow: 0 4px 12px rgba(2, 103, 123, 0.3);
-    }
-
-    .contact-email-link:hover {
-      opacity: 0.9;
-      transform: translateY(-2px);
-    }
-
-    /* フッター */
-    footer {
-      padding: 40px 20px;
-      text-align: center;
-      border-top: 1px solid var(--border-color);
-      color: var(--text-sub);
-      font-size: 0.8rem;
-      letter-spacing: 1px;
-      background: var(--bg-card);
-      transition: all 0.3s ease;
-    }
-
-    /* レスポンシブ (スマホ表示の調整) */
+    /* --------------------------------------------------
+       レスポンシブ (スマホ表示の最適化)
+    -------------------------------------------------- */
     @media (max-width: 768px) {
+      /* ヘッダー全体を縦並びにして溢れを解消 */
       header {
-        padding: 10px 12px;
-        flex-wrap: wrap; /* 必要に応じてヘッダー内を折り返し可能に */
-      }
-      
-      .logo-img {
-        height: 38px; /* ロゴサイズをやや小さくしてスペース確保 */
-      }
-      
-      .header-right {
-        gap: 6px;
+        padding: 10px 16px;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center;
       }
 
+      .logo-img {
+        height: 40px;
+      }
+
+      .header-right {
+        width: 100%;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* ナビゲーションメニューのフォントと間隔の最適化 */
       nav {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
         gap: 2px;
-        flex-wrap: wrap; /* メニュー項目が多くても画面外に出ず折り返す */
-        justify-content: flex-end;
       }
 
       nav a {
-        font-size: 0.65rem;
+        font-size: 0.7rem;
         padding: 4px 6px;
-        letter-spacing: 0; /* 文字間隔を詰めて横幅を縮小 */
+        letter-spacing: 0;
       }
 
       .theme-toggle-btn {
-        font-size: 0.65rem;
-        padding: 4px 8px;
+        font-size: 0.7rem;
+        padding: 4px 10px;
       }
 
-      /* 以下は既存のレスポンシブ設定 */
+      /* ヒーローエリアのパディング調整 */
+      .hero-section {
+        padding-top: 130px; /* ヘッダーが2行になるため少し広げる */
+      }
+
+      /* セクション余白と見出しサイズ調整 */
+      section {
+        padding: 36px 16px;
+      }
+
+      .section-title {
+        font-size: 1.75rem;
+        letter-spacing: 2px;
+      }
+
+      .sub-text {
+        font-size: 0.85rem;
+      }
+
+      /* メンバーカード・サポートカード */
+      .member-container {
+        grid-template-columns: 1fr;
+      }
+
+      .support-container {
+        flex-direction: column;
+      }
+
+      .support-card {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      /* リンク（SNSボタン） */
       .links-sns-grid {
         grid-template-columns: repeat(2, 1fr);
+        gap: 12px;
       }
+
       .sns-btn {
-        padding: 16px 12px;
+        padding: 14px 10px;
+        font-size: 0.85rem;
+      }
+
+      .sns-btn svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      /* お問い合わせカード */
+      .contact-card {
+        padding: 24px 16px;
+      }
+
+      .contact-email-box {
+        flex-direction: column;
+        padding: 14px;
+        gap: 10px;
+      }
+
+      .contact-email-address {
         font-size: 0.95rem;
       }
-      .sns-btn svg {
-        width: 22px;
-        height: 22px;
+
+      .contact-action-btn {
+        width: 100%;
+        justify-content: center;
       }
     }
 
