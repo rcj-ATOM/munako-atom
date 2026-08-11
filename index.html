@@ -70,7 +70,7 @@
     }
 
     .logo-img {
-      height: 72px;
+      height: 60px;
       width: auto;
       aspect-ratio: 1520 / 1035;
       display: block;
@@ -81,14 +81,14 @@
     .header-right {
       display: flex;
       align-items: center;
-      gap: 16px;
+      gap: 12px;
     }
 
     /* ナビゲーション */
     nav {
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
     }
 
     nav a {
@@ -97,8 +97,8 @@
       text-decoration: none;
       font-size: 0.85rem;
       font-weight: 600;
-      letter-spacing: 1px;
-      padding: 8px 12px;
+      letter-spacing: 0.5px;
+      padding: 6px 10px;
       border-radius: 20px;
       transition: color 0.3s ease;
       z-index: 1;
@@ -137,16 +137,17 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       color: var(--text-main);
-      padding: 6px 14px;
+      padding: 6px 12px;
       border-radius: 20px;
       font-size: 0.8rem;
       font-weight: 700;
       cursor: pointer;
       display: flex;
       align-items: center;
-      gap: 6px;
+      gap: 4px;
       transition: all 0.3s ease;
       box-shadow: 0 2px 4px var(--shadow-color);
+      white-space: nowrap;
     }
 
     .theme-toggle-btn:hover {
@@ -155,7 +156,7 @@
 
     /* ヒーローエリア */
     .hero-section {
-      padding-top: 110px;
+      padding-top: 100px;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -341,14 +342,12 @@
       flex-grow: 1;
     }
 
-    /* --------------------------------------------------
-       BLOG & MEDIA 埋め込み
-    -------------------------------------------------- */
+    /* BLOG & MEDIA 埋め込み */
     .blog-wrapper,
     .media-embed-wrapper {
       width: 100%;
       max-width: 760px;
-      height: 480px; /* 初期表示の高さ */
+      height: 480px;
       overflow: hidden;
       position: relative;
       transition: height 0.5s cubic-bezier(0.16, 1, 0.3, 1);
@@ -361,7 +360,6 @@
       border: none;
     }
 
-    /* VIEW MORE ボタン共通 */
     .view-more-btn {
       margin-top: 24px;
       padding: 12px 36px;
@@ -382,9 +380,7 @@
       transform: translateY(-2px);
     }
 
-    /* --------------------------------------------------
-       SUPPORT
-    -------------------------------------------------- */
+    /* SUPPORT */
     .support-container {
       display: flex;
       justify-content: center;
@@ -424,9 +420,7 @@
       object-fit: contain;
     }
 
-    /* --------------------------------------------------
-       LINKS
-    -------------------------------------------------- */
+    /* LINKS */
     .links-sns-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -466,29 +460,12 @@
       box-shadow: 0 12px 24px -4px var(--shadow-color);
     }
 
-    .sns-btn.btn-youtube:hover {
-      color: #ff0000;
-      border-color: #ff0000;
-    }
-    .sns-btn.btn-x:hover {
-      color: var(--text-main);
-      border-color: var(--text-main);
-    }
-    .sns-btn.btn-instagram:hover {
-      color: #e1306c;
-      border-color: #e1306c;
-    }
-    .sns-btn.btn-github:hover {
-      color: #2d43a4;
-      border-color: #2d2fa4;
-    }
+    .sns-btn.btn-youtube:hover { color: #ff0000; border-color: #ff0000; }
+    .sns-btn.btn-x:hover { color: var(--text-main); border-color: var(--text-main); }
+    .sns-btn.btn-instagram:hover { color: #e1306c; border-color: #e1306c; }
+    .sns-btn.btn-github:hover { color: #2d43a4; border-color: #2d2fa4; }
 
-    /* --------------------------------------------------
-       CONTACT
-    -------------------------------------------------- */
-    /* --------------------------------------------------
-       CONTACT（モダンなデザインへ刷新）
-    -------------------------------------------------- */
+    /* CONTACT */
     .contact-card {
       background: var(--bg-card);
       border: 1px solid var(--border-color);
@@ -539,7 +516,6 @@
       line-height: 1.6;
     }
 
-    /* メールアドレスボックス（コピー機能付き風） */
     .contact-email-box {
       display: flex;
       align-items: center;
@@ -586,116 +562,12 @@
       transform: translateY(-1px);
     }
 
-    /* --------------------------------------------------
-       レスポンシブ (スマホ表示の最適化)
-    -------------------------------------------------- */
-    @media (max-width: 768px) {
-      /* ヘッダー全体を縦並びにして溢れを解消 */
-      header {
-        padding: 10px 16px;
-        flex-direction: column;
-        gap: 10px;
-        align-items: center;
-      }
-
-      .logo-img {
-        height: 40px;
-      }
-
-      .header-right {
-        width: 100%;
-        justify-content: space-between;
-        flex-wrap: wrap;
-        gap: 8px;
-      }
-
-      /* ナビゲーションメニューのフォントと間隔の最適化 */
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2px;
-      }
-
-      nav a {
-        font-size: 0.7rem;
-        padding: 4px 6px;
-        letter-spacing: 0;
-      }
-
-      .theme-toggle-btn {
-        font-size: 0.7rem;
-        padding: 4px 10px;
-      }
-
-      /* ヒーローエリアのパディング調整 */
-      .hero-section {
-        padding-top: 130px; /* ヘッダーが2行になるため少し広げる */
-      }
-
-      /* セクション余白と見出しサイズ調整 */
-      section {
-        padding: 36px 16px;
-      }
-
-      .section-title {
-        font-size: 1.75rem;
-        letter-spacing: 2px;
-      }
-
-      .sub-text {
-        font-size: 0.85rem;
-      }
-
-      /* メンバーカード・サポートカード */
-      .member-container {
-        grid-template-columns: 1fr;
-      }
-
-      .support-container {
-        flex-direction: column;
-      }
-
-      .support-card {
-        max-width: 100%;
-        width: 100%;
-      }
-
-      /* リンク（SNSボタン） */
-      .links-sns-grid {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 12px;
-      }
-
-      .sns-btn {
-        padding: 14px 10px;
-        font-size: 0.85rem;
-      }
-
-      .sns-btn svg {
-        width: 20px;
-        height: 20px;
-      }
-
-      /* お問い合わせカード */
-      .contact-card {
-        padding: 24px 16px;
-      }
-
-      .contact-email-box {
-        flex-direction: column;
-        padding: 14px;
-        gap: 10px;
-      }
-
-      .contact-email-address {
-        font-size: 0.95rem;
-      }
-
-      .contact-action-btn {
-        width: 100%;
-        justify-content: center;
-      }
+    footer {
+      text-align: center;
+      padding: 24px;
+      color: var(--text-sub);
+      font-size: 0.8rem;
+      border-top: 1px solid var(--border-color);
     }
 
     /* ポップアップ（モーダル） */
@@ -769,6 +641,172 @@
       display: flex;
       align-items: center;
       justify-content: center;
+    }
+
+    /* --------------------------------------------------
+       📱 スマホ専用UI（超コンパクト・はみ出し完全対応）
+    -------------------------------------------------- */
+    @media (max-width: 768px) {
+      header {
+        padding: 6px 10px;
+      }
+
+      .logo-img {
+        height: 32px;
+      }
+
+      .header-right {
+        gap: 4px;
+      }
+
+      nav {
+        gap: 1px;
+      }
+
+      nav a {
+        font-size: 0.58rem;
+        padding: 3px 4px;
+        letter-spacing: -0.5px;
+      }
+
+      .theme-toggle-btn {
+        font-size: 0.58rem;
+        padding: 3px 6px;
+      }
+
+      .hero-section {
+        padding-top: 56px;
+      }
+
+      .hero-image-container {
+        padding: 0 10px;
+      }
+
+      section {
+        padding: 32px 12px;
+      }
+
+      .section-title {
+        font-size: 1.4rem;
+        letter-spacing: 1.5px;
+        margin-bottom: 8px;
+      }
+
+      .sub-text {
+        font-size: 0.8rem;
+        line-height: 1.5;
+        margin-bottom: 16px;
+      }
+
+      .member-title {
+        font-size: 1rem;
+        margin: 24px 0 16px;
+      }
+
+      .member-container {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+
+      .member-card {
+        padding: 16px 12px;
+      }
+
+      .member-avatar {
+        width: 60px;
+        height: 60px;
+        margin-bottom: 10px;
+      }
+
+      .news-item {
+        padding: 12px 14px;
+        gap: 8px;
+      }
+
+      .news-date {
+        font-size: 0.75rem;
+        min-width: 70px;
+      }
+
+      .news-tag {
+        font-size: 0.65rem;
+        padding: 2px 6px;
+        min-width: 48px;
+      }
+
+      .news-title {
+        font-size: 0.82rem;
+      }
+
+      .support-container {
+        gap: 12px;
+      }
+
+      .support-card {
+        padding: 10px 16px;
+        height: 70px;
+      }
+
+      .support-logo {
+        max-height: 44px;
+      }
+
+      .links-sns-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+      }
+
+      .sns-btn {
+        padding: 12px 8px;
+        font-size: 0.8rem;
+        gap: 6px;
+        border-radius: 12px;
+      }
+
+      .sns-btn svg {
+        width: 18px;
+        height: 18px;
+      }
+
+      .contact-card {
+        padding: 20px 14px;
+        border-radius: 14px;
+      }
+
+      .contact-icon-wrapper {
+        width: 48px;
+        height: 48px;
+        margin-bottom: 12px;
+      }
+
+      .contact-icon-wrapper svg {
+        width: 22px;
+        height: 22px;
+      }
+
+      .contact-desc {
+        font-size: 0.8rem;
+        margin-bottom: 16px;
+      }
+
+      .contact-email-box {
+        flex-direction: column;
+        padding: 12px;
+        gap: 8px;
+        border-radius: 10px;
+      }
+
+      .contact-email-address {
+        font-size: 0.85rem;
+      }
+
+      .contact-action-btn {
+        width: 100%;
+        justify-content: center;
+        padding: 8px 12px;
+        font-size: 0.8rem;
+        box-sizing: border-box;
+      }
     }
   </style>
 </head>
@@ -917,46 +955,42 @@
       </a>
     </div>
   </section>
-    <section id="contact">
-        <h2 class="section-title">CONTACT</h2>
-        <p class="sub-text">チームへのお問い合わせ・ご協賛に関するご相談はこちら</p>
 
-        <div class="contact-card">
-          <div class="contact-icon-wrapper">
-            <svg viewBox="0 0 24 24">
-              <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-            </svg>
-          </div>
-          <p class="contact-desc">ご質問や技術交流、取材・ご支援に関するご相談など、お気軽にご連絡ください。</p>
-          
-          <div class="contact-email-box">
-            <span class="contact-email-address">atom.rcj@gmail.com</span>
-            <a href="mailto:atom.rcj@gmail.com" class="contact-action-btn">
-              <span>メールを送る</span>
-              <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24">
-                <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </section>
+  <section id="contact">
+    <h2 class="section-title">CONTACT</h2>
+    <p class="sub-text">チームへのお問い合わせ・ご協賛に関するご相談はこちら</p>
+
+    <div class="contact-card">
+      <div class="contact-icon-wrapper">
+        <svg viewBox="0 0 24 24">
+          <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
+        </svg>
+      </div>
+      <p class="contact-desc">ご質問や技術交流、取材・ご支援に関するご相談など、お気軽にご連絡ください。</p>
+      
+      <div class="contact-email-box">
+        <span class="contact-email-address">atom.rcj@gmail.com</span>
+        <a href="mailto:atom.rcj@gmail.com" class="contact-action-btn">
+          <span>メールを送る</span>
+          <svg style="width: 14px; height: 14px; fill: currentColor;" viewBox="0 0 24 24">
+            <path d="M5 13h11.86l-5.43 5.43 1.42 1.42L21.14 12l-8.29-8.29-1.42 1.42L16.86 11H5v2z"/>
+          </svg>
+        </a>
+      </div>
+    </div>
+  </section>
 
   <footer>
     <p>&copy; 2026 ATOM Munakata E.P.C. All Rights Reserved.</p>
   </footer>
 
   <script>
-    // --------------------------------------------------
-    // 高さの動的受け取り ＆ 開閉処理（VIEW MORE）
-    // --------------------------------------------------
-    let blogFullHeight = 1200;  // 取得できるまでの初期フォールバック値
+    let blogFullHeight = 1200;
     let mediaFullHeight = 1200;
 
-    // 子iframe（blog-list / media）からの高さ通知を受信
     window.addEventListener('message', (event) => {
       if (event.data && event.data.type === 'resizeBlog') {
         blogFullHeight = event.data.height;
-        // 開いた状態でサイズ変更（ウィンドウリサイズ等）があった場合に追従
         const wrapper = document.getElementById('JS_BLOG_WRAPPER');
         if (wrapper.classList.contains('expanded')) {
           wrapper.style.height = blogFullHeight + 'px';
@@ -971,7 +1005,6 @@
       }
     });
 
-    // BLOG の開閉
     function expandBlog() {
       const wrapper = document.getElementById('JS_BLOG_WRAPPER');
       const btn = document.getElementById('JS_BLOG_VIEW_MORE_BTN');
@@ -986,7 +1019,6 @@
       }
     }
 
-    // MEDIA の開閉
     function expandMedia() {
       const wrapper = document.getElementById('JS_MEDIA_WRAPPER');
       const btn = document.getElementById('JS_MEDIA_VIEW_MORE_BTN');
@@ -1001,9 +1033,6 @@
       }
     }
 
-    // --------------------------------------------------
-    // テーマ＆ロゴ切り替え処理
-    // --------------------------------------------------
     function toggleTheme() {
       const body = document.body;
       const icon = document.getElementById('JS_THEME_ICON');
@@ -1027,7 +1056,6 @@
       });
     }
 
-    // スクロール時のアクティブナビゲーション判定
     const sections = document.querySelectorAll('section[id]');
     const navLinks = document.querySelectorAll('nav a');
 
@@ -1048,7 +1076,6 @@
       });
     });
 
-    // ポップアップを開く処理
     function openModal(schoolName, url) {
       const modal = document.getElementById('JS_SUPPORT_MODAL');
       document.getElementById('JS_MODAL_NAME').textContent = schoolName;
@@ -1056,7 +1083,6 @@
       modal.showModal();
     }
 
-    // ポップアップを閉じる処理
     function closeModal() {
       const modal = document.getElementById('JS_SUPPORT_MODAL');
       modal.close();
