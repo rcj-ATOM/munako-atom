@@ -5,14 +5,15 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Munako ATOM</title>
 
-    <link rel="icon" href="images/atom_icon.png"
-    <link rel="apple-touch-icon" href="images/atom_icon.png">
+  <link rel="icon" href="images/atom_icon.png">
+  <link rel="apple-touch-icon" href="images/atom_icon.png">
 
   <meta property="og:title" content="Munako ATOM - RCJ Soccer Team">
-<meta property="og:description" content="RCJ Soccer Infrared Team 'Munako ATOM' 公式Webサイト">
-<meta property="og:image" content="images/ATT_Design log v1.jpg">
-<meta property="og:type" content="website">
-<meta name="twitter:card" content="summary_large_image">
+  <meta property="og:description" content="RCJ Soccer Infrared Team 'Munako ATOM' 公式Webサイト">
+  <meta property="og:image" content="images/ATT_Design log v1.jpg">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+
   <style>
     /* --------------------------------------------------
        テーマ変数の定義（標準：ライトモード）
@@ -535,46 +536,46 @@
       object-fit: contain;
     }
 
-    /* --- 個人スポンサーのスタイル --- */
-.personal-sponsor-container {
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-  width: 100%;
-  max-width: 760px; /* 他のカードと幅を統一 */
-  box-sizing: border-box;
-}
+    /* 個人スポンサー */
+    .personal-sponsor-container {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      width: 100%;
+      max-width: 760px;
+      box-sizing: border-box;
+    }
 
-.personal-sponsor-card {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  padding: 18px 24px;
-  text-align: center;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-  width: 100%;
-  box-sizing: border-box;
-}
+    .personal-sponsor-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      padding: 18px 24px;
+      text-align: center;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+      width: 100%;
+      box-sizing: border-box;
+    }
 
-.personal-sponsor-card:hover {
-  border-color: var(--accent-color);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 18px var(--shadow-color);
-}
+    .personal-sponsor-card:hover {
+      border-color: var(--accent-color);
+      transform: translateY(-3px);
+      box-shadow: 0 8px 18px var(--shadow-color);
+    }
 
-.personal-sponsor-name {
-  font-size: 1.1rem;
-  font-weight: 800;
-  color: var(--text-main);
-  margin-bottom: 4px;
-}
+    .personal-sponsor-name {
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: var(--text-main);
+      margin-bottom: 4px;
+    }
 
-.personal-sponsor-note {
-  font-size: 0.82rem;
-  color: var(--text-sub);
-  line-height: 1.4;
-}
+    .personal-sponsor-note {
+      font-size: 0.82rem;
+      color: var(--text-sub);
+      line-height: 1.4;
+    }
 
     /* LINKS */
     .links-sns-grid {
@@ -800,8 +801,163 @@
       justify-content: center;
     }
 
+    /* FAQ（よくある質問） */
+    .faq-container {
+      width: 100%;
+      max-width: 760px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .faq-item {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 4px 12px var(--shadow-color);
+      transition: border-color 0.3s ease;
+    }
+
+    .faq-question {
+      width: 100%;
+      padding: 16px 20px;
+      background: transparent;
+      border: none;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      font-weight: 700;
+      text-align: left;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      box-sizing: border-box;
+    }
+
+    .faq-question::after {
+      content: "＋";
+      font-size: 1.1rem;
+      color: var(--accent-text);
+      transition: transform 0.3s ease;
+      flex-shrink: 0;
+      margin-left: 10px;
+    }
+
+    .faq-item.active .faq-question::after {
+      content: "－";
+    }
+
+    .faq-answer {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.35s ease, padding 0.35s ease;
+      padding: 0 20px;
+      font-size: 0.88rem;
+      color: var(--text-sub);
+      line-height: 1.7;
+    }
+
+    .faq-item.active .faq-answer {
+      max-height: 300px;
+      padding: 0 20px 18px 20px;
+    }
+
+    /* ライトボックス（画像拡大表示モーダル） */
+    .lightbox-modal {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(0, 0, 0, 0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.3s ease;
+    }
+
+    .lightbox-modal.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .lightbox-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 12px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+      object-fit: contain;
+      transform: scale(0.95);
+      transition: transform 0.3s ease;
+    }
+
+    .lightbox-modal.active .lightbox-img {
+      transform: scale(1);
+    }
+
+    .lightbox-close {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      background: rgba(255, 255, 255, 0.2);
+      border: none;
+      color: #ffffff;
+      font-size: 1.8rem;
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.2s ease;
+    }
+
+    .lightbox-close:hover {
+      background: rgba(255, 255, 255, 0.4);
+    }
+
+    /* SNSシェアボタン */
+    .share-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-decoration: none;
+      color: #ffffff;
+      transition: opacity 0.2s ease, transform 0.2s ease;
+      border: none;
+      cursor: pointer;
+    }
+
+    .share-btn:hover {
+      opacity: 0.85;
+      transform: translateY(-2px);
+    }
+
+    .share-x { background: #000000; }
+    .share-line { background: #06c755; }
+    .share-copy { background: var(--accent-color); }
+
     /* --------------------------------------------------
-       📱 スマホ専用UI（余白詰め＆コンパクト配置）
+       📱 スマホ専用UI（括弧の崩れを修正）
     -------------------------------------------------- */
     @media (max-width: 768px) {
       header {
@@ -933,21 +1089,16 @@
         max-height: 32px;
       }
 
-      .personal-sponsor-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+      .personal-sponsor-card {
+        padding: 14px 16px;
+      }
+      .personal-sponsor-name {
+        font-size: 0.95rem;
+      }
+      .personal-sponsor-note {
+        font-size: 0.75rem;
       }
 
-            .personal-sponsor-card {
-          padding: 14px 16px;
-        }
-        .personal-sponsor-name {
-          font-size: 0.95rem;
-        }
-        .personal-sponsor-note {
-          font-size: 0.75rem;
-        }
-      }
       .links-sns-grid {
         grid-template-columns: repeat(2, 1fr);
         gap: 8px;
@@ -983,168 +1134,7 @@
         justify-content: center;
         box-sizing: border-box;
       }
-
-      /* --------------------------------------------------
-   7. FAQ（よくある質問）
--------------------------------------------------- */
-.faq-container {
-  width: 100%;
-  max-width: 760px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.faq-item {
-  background: var(--bg-card);
-  border: 1px solid var(--border-color);
-  border-radius: 14px;
-  overflow: hidden;
-  box-shadow: 0 4px 12px var(--shadow-color);
-  transition: border-color 0.3s ease;
-}
-
-.faq-question {
-  width: 100%;
-  padding: 16px 20px;
-  background: transparent;
-  border: none;
-  color: var(--text-main);
-  font-size: 0.95rem;
-  font-weight: 700;
-  text-align: left;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  cursor: pointer;
-  box-sizing: border-box;
-}
-
-.faq-question::after {
-  content: "＋";
-  font-size: 1.1rem;
-  color: var(--accent-text);
-  transition: transform 0.3s ease;
-  flex-shrink: 0;
-  margin-left: 10px;
-}
-
-.faq-item.active .faq-question::after {
-  content: "－";
-}
-
-.faq-answer {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.35s ease, padding 0.35s ease;
-  padding: 0 20px;
-  font-size: 0.88rem;
-  color: var(--text-sub);
-  line-height: 1.7;
-}
-
-.faq-item.active .faq-answer {
-  max-height: 300px;
-  padding: 0 20px 18px 20px;
-}
-
-/* --------------------------------------------------
-   8. ライトボックス（画像拡大表示モーダル）
--------------------------------------------------- */
-.lightbox-modal {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.85);
-  backdrop-filter: blur(8px);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.3s ease;
-}
-
-.lightbox-modal.active {
-  opacity: 1;
-  pointer-events: auto;
-}
-
-.lightbox-img {
-  max-width: 90vw;
-  max-height: 85vh;
-  border-radius: 12px;
-  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-  object-fit: contain;
-  transform: scale(0.95);
-  transition: transform 0.3s ease;
-}
-
-.lightbox-modal.active .lightbox-img {
-  transform: scale(1);
-}
-
-.lightbox-close {
-  position: absolute;
-  top: 20px;
-  right: 20px;
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
-  color: #ffffff;
-  font-size: 1.8rem;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.2s ease;
-}
-
-.lightbox-close:hover {
-  background: rgba(255, 255, 255, 0.4);
-}
-
-/* --------------------------------------------------
-   9. SNSシェアボタン
--------------------------------------------------- */
-.share-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-top: 20px;
-}
-
-.share-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
-  border-radius: 20px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  text-decoration: none;
-  color: #ffffff;
-  transition: opacity 0.2s ease, transform 0.2s ease;
-  border: none;
-  cursor: pointer;
-}
-
-.share-btn:hover {
-  opacity: 0.85;
-  transform: translateY(-2px);
-}
-
-.share-x { background: #000000; }
-.share-line { background: #06c755; }
-.share-copy { background: var(--accent-color); }
-    
+    }
   </style>
 </head>
 <body>
@@ -1161,8 +1151,8 @@
         <a href="#blog" class="nav-link">BLOG</a>
         <a href="#media" class="nav-link">MEDIA</a>
         <a href="#support" class="nav-link">SUPPORT</a>
-        <a href="#links" class="nav-link">LINKS</a>
         <a href="#faq" class="nav-link">FAQ</a>
+        <a href="#links" class="nav-link">LINKS</a>
         <a href="#contact" class="nav-link">CONTACT</a>
       </nav>
 
@@ -1220,7 +1210,6 @@
     <p class="sub-text fade-in-up delay-1">チームの最新お知らせ一覧です。</p>
 
     <div class="news-container fade-in-up delay-2">
-
       <div class="news-item">
         <div class="news-date">2026.08.12</div>
         <div class="news-tag">Tech</div>
@@ -1291,19 +1280,17 @@
     </div>
 
     <div class="support-sub-title fade-in-up delay-2">PERSONAL SPONSOR</div>
-<div class="personal-sponsor-container">
-  
-  <div class="personal-sponsor-card fade-in-up delay-3">
-    <div class="personal-sponsor-name">松下　悟士 様</div>
-    <div class="personal-sponsor-note">個人サポーター / ご支援</div>
-  </div>
+    <div class="personal-sponsor-container">
+      <div class="personal-sponsor-card fade-in-up delay-3">
+        <div class="personal-sponsor-name">松下 悟士 様</div>
+        <div class="personal-sponsor-note">個人サポーター / ご支援</div>
+      </div>
 
-  <div style="text-align: center; margin-top: 16px;">
-  <p style="font-size: 0.8rem; color: var(--text-sub);">チームを応援していただける個人・企業スポンサー様を募集しています。</p>
-  <a href="#contact" class="member-link-btn" style="display: inline-block; padding: 6px 16px;">スポンサー問い合わせ</a>
-  </div>
-</div>
-
+      <div style="text-align: center; margin-top: 16px;">
+        <p style="font-size: 0.8rem; color: var(--text-sub);">チームを応援していただける個人・企業スポンサー様を募集しています。</p>
+        <a href="#contact" class="member-link-btn" style="display: inline-block; padding: 6px 16px;">スポンサー問い合わせ</a>
+      </div>
+    </div>
   </section>
 
   <dialog id="JS_SUPPORT_MODAL" class="support-modal">
@@ -1319,30 +1306,21 @@
 
   <section id="faq">
     <h2 class="section-title">FAQ</h2>
-    <p class="sub-text">よくいただくご質問とその回答です。</p>
+    <p class="sub-text">質問と回答</p>
 
     <div class="faq-container">
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Q. 使用しているマイコンやCADソフトは何ですか？
+          Q. 使用しているソフトは何ですか？
         </button>
         <div class="faq-answer">
-          3D CADには Fusion 360、基板（PCB）設計には KiCad を主に使用しています。マイコンや制御基板は用途に合わせて自作・カスタマイズしています。
+          3D CADには Fusion 360、基板（PCB）設計には KiCad を主に使用しています。機体は学校のCNCや自宅の3Dプリンタで製造し、基板はJLCPCBに発注しています。
         </div>
       </div>
 
       <div class="faq-item">
         <button class="faq-question" onclick="toggleFaq(this)">
-          Q. 個人スポンサーやご支援について教えてください。
-        </button>
-        <div class="faq-answer">
-          チーム活動費や機体開発パーツ代のご支援を募っております。CONTACTセクションのメールアドレスよりお気軽にお問い合わせください。
-        </div>
-      </div>
-
-      <div class="faq-item">
-        <button class="faq-question" onclick="toggleFaq(this)">
-          Q. 技術交流や練習試合のご相談は可能ですか？
+          Q. 技術交流は可能ですか？
         </button>
         <div class="faq-answer">
           大歓迎です！他チームの皆様との交流・情報交換を心待ちにしております。X（Twitter）のDMまたはメールにてご相談ください。
@@ -1376,6 +1354,7 @@
         <span>GitHub</span>
       </a>
     </div>
+
     <div class="share-container">
       <a href="https://twitter.com/intent/tweet?text=Munako%20ATOM%20%7C%20RCJ%20Soccer%20Team&url=https://rcj-atom.github.io/" target="_blank" rel="noopener noreferrer" class="share-btn share-x">
         ポストする (X)
@@ -1411,12 +1390,18 @@
         </a>
       </div>
     </div>
-    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position: fixed; bottom: 20px; right: 20px; border-radius: 50%; width: 44px; height: 44px; ">↑</button>
   </section>
 
+  <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="position: fixed; bottom: 20px; right: 20px; border-radius: 50%; width: 44px; height: 44px; background: var(--bg-card); border: 1px solid var(--border-color); color: var(--text-main); font-size: 1.2rem; cursor: pointer; z-index: 99; box-shadow: 0 4px 12px var(--shadow-color);">↑</button>
+
   <footer>
-    <p>&copy; ©︎Munako ATOM 2026 All Rights Reserved.</p>
+    <p>&copy; Munako ATOM 2026 All Rights Reserved.</p>
   </footer>
+
+  <div id="JS_LIGHTBOX" class="lightbox-modal" onclick="closeLightbox()">
+    <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+    <img id="JS_LIGHTBOX_IMG" class="lightbox-img" src="" alt="拡大画像" onclick="event.stopPropagation()">
+  </div>
 
   <script>
     /* --------------------------------------------------
@@ -1541,39 +1526,57 @@
       modal.close();
     }
 
-    /* --------------------------------------------------
-       7. FAQの開閉JavaScript
-    -------------------------------------------------- */
+    /* FAQの開閉 */
     function toggleFaq(button) {
       const item = button.parentElement;
       item.classList.toggle('active');
     }
 
     /* --------------------------------------------------
-       8. ライトボックス（画像拡大表示）JavaScript
-    -------------------------------------------------- */
-    function openLightbox(imageSrc) {
-      const modal = document.getElementById('JS_LIGHTBOX');
-      const img = document.getElementById('JS_LIGHTBOX_IMG');
-      img.src = imageSrc;
-      modal.classList.add('active');
-    }
+   8. ライトボックス（画像拡大表示 & スワイプ閉じ機能）
+-------------------------------------------------- */
+function openLightbox(imageSrc) {
+  const modal = document.getElementById('JS_LIGHTBOX');
+  const img = document.getElementById('JS_LIGHTBOX_IMG');
+  img.src = imageSrc;
+  modal.classList.add('active');
+}
 
-    function closeLightbox() {
-      const modal = document.getElementById('JS_LIGHTBOX');
-      modal.classList.remove('active');
-    }
+function closeLightbox() {
+  const modal = document.getElementById('JS_LIGHTBOX');
+  modal.classList.remove('active');
+}
 
-    /* --------------------------------------------------
-       9. URLコピーJavaScript
-    -------------------------------------------------- */
-    function copySiteUrl() {
-      navigator.clipboard.writeText(window.location.href).then(() => {
-        alert('WebサイトのURLをコピーしました！');
-      }).catch(err => {
-        alert('URLのコピーに失敗しました。');
-      });
-    }
+// media.html（iframe）からの画像拡大リクエストを受信
+window.addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'openLightbox') {
+    openLightbox(event.data.src);
+  }
+});
+
+/* --- スワイプジェスチャーで閉じる処理 --- */
+let touchStartX = 0;
+let touchStartY = 0;
+
+const lightboxModal = document.getElementById('JS_LIGHTBOX');
+
+lightboxModal.addEventListener('touchstart', (e) => {
+  touchStartX = e.changedTouches[0].screenX;
+  touchStartY = e.changedTouches[0].screenY;
+}, { passive: true });
+
+lightboxModal.addEventListener('touchend', (e) => {
+  const touchEndX = e.changedTouches[0].screenX;
+  const touchEndY = e.changedTouches[0].screenY;
+  
+  const diffX = touchEndX - touchStartX; // 右方向への移動距離
+  const diffY = touchStartY - touchEndY; // 上方向への移動距離
+
+  // 50px以上「左から右」または「下から上」にスワイプされたら閉じる
+  if (diffX > 50 || diffY > 50) {
+    closeLightbox();
+  }
+}, { passive: true });
   </script>
 </body>
 </html>
