@@ -1059,19 +1059,25 @@ header {
         align-items: center;
       }
 
-      nav {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 2px 4px;
-        max-width: 240px;
-      }
+      /* ナビゲーション全体のコンテナを中央寄せ */
+  nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center; /* 横方向の中央寄せ */
+    align-items: center;     /* 縦方向の中央寄せ */
+    gap: 4px 6px;
+    width: 100%;             /* 横幅いっぱいに広げて中央配置を確実に */
+    max-width: 100%;         /* 幅制限を解除 */
+    margin: 0 auto;          /* 余白の中央寄せ */
+  }
 
-      nav a {
-        font-size: 0.62rem;
-        padding: 2px 5px;
-        letter-spacing: -0.2px;
-      }
+  /* 各リンクボタンテキストの中央寄せ */
+  nav a {
+    font-size: 0.7rem;
+    padding: 4px 8px;
+    letter-spacing: -0.2px;
+    text-align: center;      /* テキストを中央寄せ */
+  }
 
       .theme-toggle-btn {
         font-size: 0.65rem;
