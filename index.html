@@ -81,46 +81,128 @@
     .delay-3 { transition-delay: 0.3s; }
     .delay-4 { transition-delay: 0.4s; }
 
-    /* --------------------------------------------------
-       ヘッダー
-    -------------------------------------------------- */
-    header {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      padding: 6px 30px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-sizing: border-box;
-      z-index: 100;
-      background: var(--bg-header);
-      backdrop-filter: blur(12px);
-      border-bottom: 1px solid var(--border-color);
-      transition: background 0.3s ease, border-color 0.3s ease;
-    }
+    /* ヘッダー全体構造 */
+header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 8px 24px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-sizing: border-box;
+  z-index: 100;
+  background: var(--bg-header);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  transition: all 0.3s ease;
+}
 
-    .logo-img {
-      height: 150px;
-      width: auto;
-      aspect-ratio: 1520 / 1035;
-      display: block;
-      object-fit: contain;
-      margin: 0;
-      padding: 0;
-      transition: transform 0.3s ease;
-    }
+.header-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
 
-    .logo-img:hover {
-      transform: scale(1.03);
-    }
+.logo-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+}
 
-    .header-right {
-      display: flex;
-      align-items: center;
-      gap: 16px;
-    }
+.logo-img {
+  height: 48px; /* スッキリした高さに自動調整 */
+  width: auto;
+  display: block;
+  object-fit: contain;
+}
+
+/* チームサブタイトル設定 */
+.header-team-tag {
+  display: flex;
+  flex-direction: column;
+  border-left: 2px solid var(--border-color);
+  padding-left: 10px;
+}
+
+.team-tag-title {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: var(--text-main);
+  line-height: 1.1;
+  letter-spacing: 0.5px;
+}
+
+.team-tag-sub {
+  font-size: 0.65rem;
+  color: var(--accent-text);
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+/* アクションエリア */
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ミニSNSアイコン */
+.header-sns-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  color: var(--text-sub);
+  border-radius: 50%;
+  transition: all 0.2s ease;
+}
+
+.header-sns-icon svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+.header-sns-icon:hover {
+  color: var(--accent-color);
+  background: var(--accent-light);
+}
+
+/* CTA（お問い合わせ）ボタン */
+.header-cta-btn {
+  background: var(--accent-color);
+  color: #ffffff !important;
+  font-size: 0.78rem;
+  font-weight: 700;
+  padding: 6px 14px;
+  border-radius: 20px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  box-shadow: 0 2px 8px var(--shadow-color);
+  white-space: nowrap;
+}
+
+.header-cta-btn:hover {
+  transform: translateY(-1px);
+  opacity: 0.9;
+}
+
+@media (max-width: 768px) {
+  .header-team-tag,
+  .header-sns-icon,
+  .header-cta-btn {
+    display: none; /* スマホ画面ではコンパクト化のため非表示 */
+  }
+}
 
     /* ナビゲーション */
     nav {
@@ -1140,9 +1222,15 @@
 <body>
 
   <header>
-    <a href="#">
-      <img src="images/logo-light.png" alt="TEAM LOGO" class="logo-img" id="JS_LOGO_IMG">
-    </a>
+    <div class="header-left">
+      <a href="#" class="logo-link">
+        <img src="images/logo-light.png" alt="TEAM LOGO" class="logo-img" id="JS_LOGO_IMG">
+      </a>
+      <div class="header-team-tag">
+        <span class="team-tag-title">Munako ATOM</span>
+        <span class="team-tag-sub">RCJ Soccer Infrared Team</span>
+      </div>
+    </div>
     
     <div class="header-right">
       <nav>
@@ -1153,12 +1241,22 @@
         <a href="#support" class="nav-link">SUPPORT</a>
         <a href="#faq" class="nav-link">FAQ</a>
         <a href="#links" class="nav-link">LINKS</a>
-        <a href="#contact" class="nav-link">CONTACT</a>
       </nav>
 
-      <button class="theme-toggle-btn" id="JS_THEME_BTN" onclick="toggleTheme()">
-        <span id="JS_THEME_LABEL">DARK</span>
-      </button>
+      <div class="header-actions">
+        <a href="https://x.com/Munachu_atom" target="_blank" class="header-sns-icon" title="X (Twitter)">
+          <svg viewBox="0 0 24 24"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg>
+        </a>
+        <a href="https://github.com/rcj-ATOM" target="_blank" class="header-sns-icon" title="GitHub">
+          <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        </a>
+
+        <button class="theme-toggle-btn" id="JS_THEME_BTN" onclick="toggleTheme()">
+          <span id="JS_THEME_LABEL">DARK</span>
+        </button>
+
+        <a href="#contact" class="header-cta-btn">お問い合わせ</a>
+      </div>
     </div>
   </header>
 
