@@ -983,6 +983,167 @@
         justify-content: center;
         box-sizing: border-box;
       }
+
+      /* --------------------------------------------------
+   7. FAQ（よくある質問）
+-------------------------------------------------- */
+.faq-container {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.faq-item {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 14px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px var(--shadow-color);
+  transition: border-color 0.3s ease;
+}
+
+.faq-question {
+  width: 100%;
+  padding: 16px 20px;
+  background: transparent;
+  border: none;
+  color: var(--text-main);
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-align: left;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+.faq-question::after {
+  content: "＋";
+  font-size: 1.1rem;
+  color: var(--accent-text);
+  transition: transform 0.3s ease;
+  flex-shrink: 0;
+  margin-left: 10px;
+}
+
+.faq-item.active .faq-question::after {
+  content: "－";
+}
+
+.faq-answer {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease, padding 0.35s ease;
+  padding: 0 20px;
+  font-size: 0.88rem;
+  color: var(--text-sub);
+  line-height: 1.7;
+}
+
+.faq-item.active .faq-answer {
+  max-height: 300px;
+  padding: 0 20px 18px 20px;
+}
+
+/* --------------------------------------------------
+   8. ライトボックス（画像拡大表示モーダル）
+-------------------------------------------------- */
+.lightbox-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(8px);
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.lightbox-modal.active {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.lightbox-img {
+  max-width: 90vw;
+  max-height: 85vh;
+  border-radius: 12px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  object-fit: contain;
+  transform: scale(0.95);
+  transition: transform 0.3s ease;
+}
+
+.lightbox-modal.active .lightbox-img {
+  transform: scale(1);
+}
+
+.lightbox-close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  border: none;
+  color: #ffffff;
+  font-size: 1.8rem;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s ease;
+}
+
+.lightbox-close:hover {
+  background: rgba(255, 255, 255, 0.4);
+}
+
+/* --------------------------------------------------
+   9. SNSシェアボタン
+-------------------------------------------------- */
+.share-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-top: 20px;
+}
+
+.share-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  color: #ffffff;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  border: none;
+  cursor: pointer;
+}
+
+.share-btn:hover {
+  opacity: 0.85;
+  transform: translateY(-2px);
+}
+
+.share-x { background: #000000; }
+.share-line { background: #06c755; }
+.share-copy { background: var(--accent-color); }
     
   </style>
 </head>
@@ -1001,6 +1162,7 @@
         <a href="#media" class="nav-link">MEDIA</a>
         <a href="#support" class="nav-link">SUPPORT</a>
         <a href="#links" class="nav-link">LINKS</a>
+        <a href="#faq" class="nav-link">FAQ</a>
         <a href="#contact" class="nav-link">CONTACT</a>
       </nav>
 
@@ -1011,8 +1173,8 @@
   </header>
 
   <div class="hero-section">
-    <div class="hero-image-container fade-in-up">
-      <img src="images/ATT_Design log v1.jpg" alt="ATOM Munakata E.P.C." class="hero-img">
+    <div class="hero-image-container">
+      <img src="images/ATT_Design log v1.jpg" alt="ATOM Munakata E.P.C." class="hero-img" onclick="openLightbox(this.src)" style="cursor: pointer;">
     </div>
   </div>
 
@@ -1155,6 +1317,40 @@
     </div>
   </dialog>
 
+  <section id="faq">
+    <h2 class="section-title">FAQ</h2>
+    <p class="sub-text">よくいただくご質問とその回答です。</p>
+
+    <div class="faq-container">
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 使用しているマイコンやCADソフトは何ですか？
+        </button>
+        <div class="faq-answer">
+          3D CADには Fusion 360、基板（PCB）設計には KiCad を主に使用しています。マイコンや制御基板は用途に合わせて自作・カスタマイズしています。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 個人スポンサーやご支援について教えてください。
+        </button>
+        <div class="faq-answer">
+          チーム活動費や機体開発パーツ代のご支援を募っております。CONTACTセクションのメールアドレスよりお気軽にお問い合わせください。
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFaq(this)">
+          Q. 技術交流や練習試合のご相談は可能ですか？
+        </button>
+        <div class="faq-answer">
+          大歓迎です！他チームの皆様との交流・情報交換を心待ちにしております。X（Twitter）のDMまたはメールにてご相談ください。
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section id="links">
     <h2 class="section-title fade-in-up">OFFICIAL LINKS</h2>
     <p class="sub-text fade-in-up delay-1">チームの各種SNS・公式アカウント一覧です。</p>
@@ -1179,6 +1375,17 @@
         <svg viewBox="0 0 24 24"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
         <span>GitHub</span>
       </a>
+    </div>
+    <div class="share-container">
+      <a href="https://twitter.com/intent/tweet?text=Munako%20ATOM%20%7C%20RCJ%20Soccer%20Team&url=https://rcj-atom.github.io/" target="_blank" rel="noopener noreferrer" class="share-btn share-x">
+        ポストする (X)
+      </a>
+      <a href="https://social-plugins.line.me/lineit/share?url=https://rcj-atom.github.io/" target="_blank" rel="noopener noreferrer" class="share-btn share-line">
+        LINEで送る
+      </a>
+      <button class="share-btn share-copy" onclick="copySiteUrl()">
+        URLをコピー
+      </button>
     </div>
   </section>
 
@@ -1332,6 +1539,40 @@
     function closeModal() {
       const modal = document.getElementById('JS_SUPPORT_MODAL');
       modal.close();
+    }
+
+    /* --------------------------------------------------
+       7. FAQの開閉JavaScript
+    -------------------------------------------------- */
+    function toggleFaq(button) {
+      const item = button.parentElement;
+      item.classList.toggle('active');
+    }
+
+    /* --------------------------------------------------
+       8. ライトボックス（画像拡大表示）JavaScript
+    -------------------------------------------------- */
+    function openLightbox(imageSrc) {
+      const modal = document.getElementById('JS_LIGHTBOX');
+      const img = document.getElementById('JS_LIGHTBOX_IMG');
+      img.src = imageSrc;
+      modal.classList.add('active');
+    }
+
+    function closeLightbox() {
+      const modal = document.getElementById('JS_LIGHTBOX');
+      modal.classList.remove('active');
+    }
+
+    /* --------------------------------------------------
+       9. URLコピーJavaScript
+    -------------------------------------------------- */
+    function copySiteUrl() {
+      navigator.clipboard.writeText(window.location.href).then(() => {
+        alert('WebサイトのURLをコピーしました！');
+      }).catch(err => {
+        alert('URLのコピーに失敗しました。');
+      });
     }
   </script>
 </body>
