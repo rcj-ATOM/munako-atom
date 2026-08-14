@@ -71,7 +71,18 @@
       <div class="media-text">Power Supply Board V1.0</div>
     </div>
 
-  </div> <script>
+  </div> 
+  
+  <script>
+
+   function sendHeight() {
+   const height = document.documentElement.scrollHeight;
+      window.parent.postMessage({ type: 'resizeIframe', height: height }, '*');
+    }
+
+    // 読み込み時および画面リサイズ時に高さを送信
+    window.addEventListener('load', sendHeight);
+    window.addEventListener('resize', sendHeight);
     /* 親画面（index.html）へ画像のパスを送って拡大表示させる関数 */
     function sendOpenLightbox(imageSrc) {
       window.parent.postMessage({ type: 'openLightbox', src: imageSrc }, '*');
