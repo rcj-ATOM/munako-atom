@@ -1255,10 +1255,9 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
-    .blog-wrapper,
-    .media-embed-wrapper {
-      height: 480px;
-    }
+   .blog-wrapper, .media-embed-wrapper {
+  height: auto; /* またはこの指定自体を削除 */
+}
 
     .support-container {
       grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -1392,10 +1391,9 @@
         padding: 2px 6px;
       }
 
-      .blog-wrapper,
-      .media-embed-wrapper {
-        height: 280px;
-      }
+      .blog-wrapper, .media-embed-wrapper {
+  height: auto; /* またはこの指定自体を削除 */
+}
 
       .support-sub-title {
         font-size: 0.9rem;
@@ -1854,20 +1852,21 @@
     });
 
       // media.html から高さの情報を受け取って iframe の高さを変更する
-    window.addEventListener('message', (event) => {
-    // ライトボックス処理（既存）
-    if (event.data && event.data.type === 'openLightbox') {
-      openLightbox(event.data.src);
-    }
+    // media.html や blog-list.html からのメッセージ受信
+window.addEventListener('message', (event) => {
+  // ライトボックス処理（既存）
+  if (event.data && event.data.type === 'openLightbox') {
+    openLightbox(event.data.src);
+  }
 
-    // 高さの自動調整処理（新規追加）
-    if (event.data && event.data.type === 'resizeIframe') {
-      const iframe = document.querySelector('.media-iframe');
-      if (iframe) {
-        iframe.style.height = event.data.height + 'px';
-      }
+  // ★追加：iframe の高さ自動調整処理
+  if (event.data && event.data.type === 'resizeIframe') {
+    const mediaIframe = document.getElementById('JS_MEDIA_IFRAME');
+    if (mediaIframe && event.data.height) {
+      mediaIframe.style.height = event.data.height + 'px';
     }
-    });
+  }
+});
 
     function expandBlog() {
       const wrapper = document.getElementById('JS_BLOG_WRAPPER');
