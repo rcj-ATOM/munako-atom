@@ -79,16 +79,29 @@
       window.parent.postMessage({ type: 'openLightbox', src: imageSrc }, '*');
     }
 
-    /* ★追加：親画面（index.html）へ自分のコンテンツの高さを送る関数 */
+    /* 親画面（index.html）へ正確なコンテンツの高さを送信する関数 */
     function sendHeight() {
-      // 中身のコンテンツの高さを取得
-      const height = document.documentElement.scrollHeight;
+      // bodyとdocumentElementのうち、大きい方の正確な高さを取得
+      const height = Math.max(
+        document.body.scrollHeight,
+        document.documentElement.scrollHeight
+      );
       window.parent.postMessage({ type: 'resizeIframe', height: height }, '*');
     }
 
-    // 読み込み完了時・画面サイズ変更時に高さを送信
+    // 1. ページ読み込み完了時
     window.addEventListener('load', sendHeight);
+    // 2. ウィンドウリサイズ時
     window.addEventListener('resize', sendHeight);
+
+    // 3. 画像の読み込み完了時にも高さを再送信（画像読み込み遅延対策）
+    document.addEventListener('DOMContentLoaded', () => {
+      sendHeight();
+      const images = document.querySelectorAll('img');
+      images.forEach(img => {
+        img.addEventListener('load', sendHeight);
+      });
+    });
   </script>
 </body>
 </html>

@@ -524,23 +524,24 @@
     }
 
     /* BLOG & MEDIA 埋め込み枠 */
-    .blog-wrapper,
-    .media-embed-wrapper {
-      width: 100%;
-      overflow: hidden;
-      position: relative;
-      transition: height 0.3s ease;
-      border-radius: 16px;
-      /* height: 480px; ← 固定の高さを削除（自動調整させるため） */
-    }
+.blog-wrapper,
+.media-embed-wrapper {
+  width: 100%;
+  overflow: visible; /* 切り取られないように visible に設定 */
+  position: relative;
+  transition: height 0.3s ease;
+  border-radius: 16px;
+  min-height: 500px; /* 初期表示用の最小高さ */
+  height: auto;      /* 固定高さを解除 */
+}
 
-    /* iframe 自体のスクロールを無効化 */
-    .media-iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
-      overflow: hidden; /* スクロールバーを非表示にする */
-    }
+/* iframe 自体 */
+.media-iframe {
+  width: 100%;
+  border: none;
+  min-height: 500px;
+  transition: height 0.2s ease;
+}
 
     .view-more-btn {
       margin-top: 20px;
@@ -1957,48 +1958,57 @@ window.addEventListener('message', (event) => {
     /* --------------------------------------------------
    8. ライトボックス（画像拡大表示 & スワイプ閉じ機能）
 -------------------------------------------------- */
-function openLightbox(imageSrc) {
-  const modal = document.getElementById('JS_LIGHTBOX');
-  const img = document.getElementById('JS_LIGHTBOX_IMG');
-  img.src = imageSrc;
-  modal.classList.add('active');
-}
+    function openLightbox(imageSrc) {
+      const modal = document.getElementById('JS_LIGHTBOX');
+      const img = document.getElementById('JS_LIGHTBOX_IMG');
+      img.src = imageSrc;
+      modal.classList.add('active');
+    }
 
-function closeLightbox() {
-  const modal = document.getElementById('JS_LIGHTBOX');
-  modal.classList.remove('active');
-}
+    function closeLightbox() {
+      const modal = document.getElementById('JS_LIGHTBOX');
+      modal.classList.remove('active');
+    }
 
-// media.html（iframe）からの画像拡大リクエストを受信
-window.addEventListener('message', (event) => {
-  if (event.data && event.data.type === 'openLightbox') {
-    openLightbox(event.data.src);
-  }
-});
+    window.addEventListener('message', (event) => {
+      // ライトボックス処理
+      if (event.data && event.data.type === 'openLightbox') {
+        openLightbox(event.data.src);
+      }
 
-/* --- スワイプジェスチャーで閉じる処理 --- */
-let touchStartX = 0;
-let touchStartY = 0;
+      // 高さの自動調整処理
+      if (event.data && event.data.type === 'resizeIframe') {
+        const mediaIframe = document.getElementById('JS_MEDIA_IFRAME');
+        if (mediaIframe && event.data.height) {
+          // 画面崩れを防ぐため少し余裕（+20pxなど）を持たせて高さをセット
+          mediaIframe.style.height = (event.data.height + 20) + 'px';
+        }
+      }
+    });
 
-const lightboxModal = document.getElementById('JS_LIGHTBOX');
+    /* --- スワイプジェスチャーで閉じる処理 --- */
+    let touchStartX = 0;
+    let touchStartY = 0;
 
-lightboxModal.addEventListener('touchstart', (e) => {
-  touchStartX = e.changedTouches[0].screenX;
-  touchStartY = e.changedTouches[0].screenY;
-}, { passive: true });
+    const lightboxModal = document.getElementById('JS_LIGHTBOX');
 
-lightboxModal.addEventListener('touchend', (e) => {
-  const touchEndX = e.changedTouches[0].screenX;
-  const touchEndY = e.changedTouches[0].screenY;
-  
-  const diffX = touchEndX - touchStartX; // 右方向への移動距離
-  const diffY = touchStartY - touchEndY; // 上方向への移動距離
+    lightboxModal.addEventListener('touchstart', (e) => {
+      touchStartX = e.changedTouches[0].screenX;
+      touchStartY = e.changedTouches[0].screenY;
+    }, { passive: true });
 
-  // 50px以上「左から右」または「下から上」にスワイプされたら閉じる
-  if (diffX > 50 || diffY > 50) {
-    closeLightbox();
-  }
-}, { passive: true });
+    lightboxModal.addEventListener('touchend', (e) => {
+      const touchEndX = e.changedTouches[0].screenX;
+      const touchEndY = e.changedTouches[0].screenY;
+      
+      const diffX = touchEndX - touchStartX; // 右方向への移動距離
+      const diffY = touchStartY - touchEndY; // 上方向への移動距離
+
+      // 50px以上「左から右」または「下から上」にスワイプされたら閉じる
+      if (diffX > 50 || diffY > 50) {
+        closeLightbox();
+      }
+    }, { passive: true });
   </script>
 </body>
 </html>
