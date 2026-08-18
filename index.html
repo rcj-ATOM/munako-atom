@@ -523,25 +523,33 @@
       flex-grow: 1;
     }
 
-    /* BLOG & MEDIA 埋め込み枠 */
-.blog-wrapper,
-.media-embed-wrapper {
-  width: 100%;
-  overflow: visible; /* 切り取られないように visible に設定 */
-  position: relative;
-  transition: height 0.3s ease;
-  border-radius: 16px;
-  min-height: 500px; /* 初期表示用の最小高さ */
-  height: auto;      /* 固定高さを解除 */
-}
+      /* BLOG & MEDIA 埋め込み枠の基本スタイル */
+    .blog-wrapper,
+    .media-embed-wrapper {
+    width: 100%;
+    max-width: 1000px;
+    position: relative;
+    overflow: hidden; /* はみ出た部分を隠す */
+    height: 380px;    /* 初期表示（折りたたみ時）の高さ */
+    border-radius: 16px;
+    transition: height 0.4s ease; /* 開閉アニメーション */
+    }
 
-/* iframe 自体 */
-.media-iframe {
-  width: 100%;
-  border: none;
-  min-height: 500px;
-  transition: height 0.2s ease;
-}
+    /* 展開（開いた）状態 */
+    .blog-wrapper.expanded,
+    .media-embed-wrapper.expanded {
+    height: auto; /* コンテンツに応じた高さまで広げる */
+    max-height: 5000px; /* アニメーション用に十分な高さを確保 */
+    }
+
+    /* iframe 自体 */
+    .media-iframe {
+    width: 100%;
+    height: 100%;
+    min-height: 500px;
+    border: none;
+    display: block;
+    }
 
     .view-more-btn {
       margin-top: 20px;
@@ -1392,9 +1400,10 @@
         padding: 2px 6px;
       }
 
-      .blog-wrapper, .media-embed-wrapper {
-  height: auto; /* またはこの指定自体を削除 */
-}
+      .blog-wrapper,
+      .media-embed-wrapper {
+        height: 280px; /* スマホ時の折りたたみ高さ */
+      }
 
       .support-sub-title {
         font-size: 0.9rem;
@@ -1870,32 +1879,24 @@ window.addEventListener('message', (event) => {
 });
 
     function expandBlog() {
-      const wrapper = document.getElementById('JS_BLOG_WRAPPER');
-      const btn = document.getElementById('JS_BLOG_VIEW_MORE_BTN');
-      const isExpanded = wrapper.classList.toggle('expanded');
+  const wrapper = document.getElementById('JS_BLOG_WRAPPER');
+  const btn = document.getElementById('JS_BLOG_VIEW_MORE_BTN');
+  const isExpanded = wrapper.classList.toggle('expanded');
 
-      if (isExpanded) {
-        wrapper.style.height = blogFullHeight + 'px';
-        btn.textContent = 'CLOSE';
-      } else {
-        wrapper.style.height = window.innerWidth <= 768 ? '280px' : '380px';
-        btn.textContent = 'VIEW MORE';
-      }
-    }
+  // インラインスタイルの高さを消去してCSSクラスに任せる
+  wrapper.style.height = ''; 
+  btn.textContent = isExpanded ? 'CLOSE' : 'VIEW MORE';
+}
 
-    function expandMedia() {
-      const wrapper = document.getElementById('JS_MEDIA_WRAPPER');
-      const btn = document.getElementById('JS_MEDIA_VIEW_MORE_BTN');
-      const isExpanded = wrapper.classList.toggle('expanded');
+function expandMedia() {
+  const wrapper = document.getElementById('JS_MEDIA_WRAPPER');
+  const btn = document.getElementById('JS_MEDIA_VIEW_MORE_BTN');
+  const isExpanded = wrapper.classList.toggle('expanded');
 
-      if (isExpanded) {
-        wrapper.style.height = mediaFullHeight + 'px';
-        btn.textContent = 'CLOSE';
-      } else {
-        wrapper.style.height = window.innerWidth <= 768 ? '280px' : '380px';
-        btn.textContent = 'VIEW MORE';
-      }
-    }
+  // インラインスタイルの高さを消去してCSSクラスに任せる
+  wrapper.style.height = ''; 
+  btn.textContent = isExpanded ? 'CLOSE' : 'VIEW MORE';
+}
 
     function toggleTheme() {
       const body = document.body;
