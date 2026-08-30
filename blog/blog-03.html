@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ブログ記事タイトル - ATOM</title>
+  <title>記事作成テンプレート - Munako ATOM</title>
   <style>
     :root {
       --bg-main: #f8fafc;
@@ -96,24 +96,26 @@
       margin-top: -16px;
       margin-bottom: 24px;
     }
+
+    @media (max-width: 600px) {
+      body { padding: 20px 12px; }
+      .blog-article { padding: 24px 18px; border-radius: 12px; }
+      .article-title { font-size: 1.45rem; margin-bottom: 24px; }
+    }
   </style>
 </head>
 <body>
 
   <article class="blog-article">
-    <a href="../index.html#blog" class="back-link">← TOPへ戻る</a>    <div class="article-date">2026.08.07</div>
-    <h1 class="article-title">ロボットの新しいプロトタイプを公開しました</h1>
+    <a href="../index.html#blog" class="back-link">← BLOG一覧へ戻る</a>
+    <div class="article-date">公開日を入力</div>
+    <h1 class="article-title">記事タイトルを入力</h1>
 
     <div class="blog-content">
-      <p>ここに自由に文章を書きます。最初のアプローチとして新しいフレームワークを導入しました。</p>
+      <p>ここに記事の導入を書きます。公開前に、このテンプレートを複製してタイトル・日付・本文・画像を更新してください。</p>
 
-      <h3>開発の進捗について</h3>
-      <p>以下の画像は今回テストしたパーツの組み上げ写真です。</p>
-
-      <img src="images/robot01image.jpg" alt="ロボット画像" class="blog-image">
-      <div class="image-caption">写真01：新型フレームのテスト風景</div>
-
-      <p>このように画像の下に続けて文章を書くことができます。何枚でも自由な場所に画像を配置可能です。</p>
+      <h3>見出しを入力</h3>
+      <p>本文を段落ごとに <code>&lt;p&gt;</code> で囲んで追加します。画像を入れる場合は、実在する画像ファイルへのパスと内容を説明する alt テキストを設定してください。</p>
 
       </div>
   </article>
