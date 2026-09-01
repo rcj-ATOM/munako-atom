@@ -107,6 +107,14 @@
       transform: translateY(0) scale(1);
     }
 
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+      }
+    }
+
     .delay-1 { transition-delay: 0.1s; }
     .delay-2 { transition-delay: 0.2s; }
     .delay-3 { transition-delay: 0.3s; }
@@ -419,8 +427,9 @@
     }
 
     .member-container {
-      display: grid;
-      gap: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
       width: 100%;
     }
 
@@ -428,17 +437,17 @@
       background: var(--bg-card);
       border: 1px solid var(--border-color);
       border-radius: 16px;
-      padding: 24px 16px;
-      text-align: center;
+      padding: 18px 22px;
       box-shadow: 0 4px 12px var(--shadow-color);
       transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
       display: flex;
-      flex-direction: column;
       align-items: center;
+      gap: 18px;
+      text-align: left;
     }
 
     .member-card:hover {
-      transform: translateY(-6px) scale(1.02);
+      transform: translateY(-3px);
       border-color: var(--accent-color);
       box-shadow: 0 12px 24px var(--shadow-color);
     }
@@ -448,10 +457,11 @@
       height: 64px;
       border-radius: 50%;
       background: var(--border-color);
-      margin-bottom: 12px;
+      margin: 0;
       object-fit: cover;
       border: 2px solid var(--accent-color);
       transition: transform 0.3s ease;
+      flex: 0 0 auto;
     }
 
     .member-card:hover .member-avatar {
@@ -459,6 +469,7 @@
     }
 
     .member-name {
+      font-family: var(--font-tech-compact);
       font-size: 1.05rem;
       font-weight: 800;
       color: var(--text-main);
@@ -466,6 +477,7 @@
     }
 
     .member-role {
+      display: inline-block;
       font-size: 0.72rem;
       color: var(--accent-text);
       font-weight: 700;
@@ -480,9 +492,10 @@
       font-size: 0.82rem;
       color: var(--text-sub);
       line-height: 1.5;
-      margin-bottom: 14px;
-      flex-grow: 1;
+      margin: 0 0 12px;
     }
+
+    .member-content { flex: 1; min-width: 0; }
 
     .member-links {
       display: flex;
@@ -534,6 +547,29 @@
       border-bottom: none;
     }
 
+    .news-item[hidden] { display: none; }
+
+    .news-toggle-btn {
+      margin-top: 18px;
+      padding: 10px 24px;
+      border: 1px solid var(--accent-color);
+      border-radius: 999px;
+      background: transparent;
+      color: var(--accent-text);
+      font-family: var(--font-tech-compact);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      transition: background-color 0.2s ease, color 0.2s ease, transform 0.2s ease;
+    }
+
+    .news-toggle-btn:hover {
+      background: var(--accent-color);
+      color: #fff;
+      transform: translateY(-2px);
+    }
+
     .news-date {
       font-size: 0.85rem;
       color: var(--text-sub);
@@ -560,14 +596,60 @@
     }
 
     /* --- BLOG & MEDIA --- */
-    .blog-grid,
-    .media-grid {
+    .carousel {
       width: 100%;
       max-width: 1000px;
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
+      display: flex;
+      overflow-x: auto;
+      overscroll-behavior-x: contain;
+      scroll-snap-type: x mandatory;
+      scroll-behavior: smooth;
       gap: 18px;
+      padding: 4px 2px 14px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent-color) transparent;
     }
+
+    .carousel::-webkit-scrollbar { height: 8px; }
+    .carousel::-webkit-scrollbar-thumb { background: var(--accent-color); border-radius: 999px; }
+
+    .carousel-card {
+      flex: 0 0 min(720px, 82%);
+      scroll-snap-align: start;
+    }
+
+    .carousel-toolbar {
+      width: 100%;
+      max-width: 1000px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin: 0 0 8px;
+    }
+
+    .carousel-hint {
+      margin: 0;
+      color: var(--text-sub);
+      font-size: 0.78rem;
+    }
+
+    .carousel-controls { display: flex; gap: 8px; }
+
+    .carousel-control {
+      width: 36px;
+      height: 32px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background: var(--bg-card);
+      color: var(--accent-text);
+      cursor: pointer;
+      font-size: 1.1rem;
+      line-height: 1;
+    }
+
+    .carousel-control:hover { border-color: var(--accent-color); background: var(--accent-light); }
+    
 
     .blog-card,
     .media-card {
@@ -1315,17 +1397,12 @@
     .about-concept-card,
     .member-container,
     .news-container,
-    .blog-grid,
-    .media-grid,
+    .carousel,
     .support-container,
     .personal-sponsor-container,
     .faq-container,
     .links-sns-grid {
       max-width: 1000px;
-    }
-
-    .member-container {
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
     }
 
     .support-container {
@@ -1345,14 +1422,14 @@
     ================================================== */
     @media (max-width: 768px) {
       header {
-        padding: 4px 10px;
+        padding: 4px 0 5px;
         flex-direction: column;
         align-items: center;
-        gap: 4px;
+        gap: 0;
       }
 
       .logo-img {
-        height: 70px;
+        height: 52px;
       }
 
       .header-team-tag,
@@ -1363,26 +1440,35 @@
 
       .header-right {
         width: 100%;
-        justify-content: space-between;
+        overflow: hidden;
+        justify-content: flex-start;
         align-items: center;
       }
 
-      /* スマホナビゲーション中央寄せ */
       nav {
         display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
+        flex-wrap: nowrap;
+        justify-content: flex-start;
         align-items: center;
-        gap: 4px 6px;
+        gap: 4px;
         width: 100%;
         max-width: 100%;
-        margin: 0 auto;
+        margin: 0;
+        padding: 2px 10px 5px;
+        overflow-x: auto;
+        overscroll-behavior-x: contain;
+        scrollbar-width: none;
+        scroll-snap-type: x proximity;
       }
 
+      nav::-webkit-scrollbar { display: none; }
+
       nav a {
-        font-size: 0.7rem;
-        padding: 4px 8px;
-        letter-spacing: -0.2px;
+        flex: 0 0 auto;
+        scroll-snap-align: start;
+        font-size: 0.64rem;
+        padding: 5px 9px;
+        letter-spacing: 0;
         text-align: center;
       }
 
@@ -1392,7 +1478,7 @@
       }
 
       .hero-section {
-        padding-top: 125px;
+        padding-top: 98px;
       }
 
       section {
@@ -1424,35 +1510,34 @@
       }
 
       .member-container {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 8px;
+        gap: 10px;
       }
 
       .member-card {
-        padding: 14px 6px;
+        gap: 12px;
+        padding: 14px 12px;
         border-radius: 12px;
       }
 
       .member-avatar {
-        width: 44px;
-        height: 44px;
-        margin-bottom: 6px;
+        width: 48px;
+        height: 48px;
       }
 
       .member-name {
-        font-size: 0.85rem;
+        font-size: 0.82rem;
       }
 
       .member-role {
-        font-size: 0.62rem;
+        font-size: 0.58rem;
         padding: 2px 5px;
         margin-bottom: 6px;
       }
 
       .member-bio {
-        font-size: 0.7rem;
-        line-height: 1.3;
-        margin-bottom: 8px;
+        font-size: 0.72rem;
+        line-height: 1.45;
+        margin-bottom: 7px;
       }
 
       .member-link-btn {
@@ -1460,11 +1545,14 @@
         padding: 2px 6px;
       }
 
-      .blog-grid,
-      .media-grid {
-        grid-template-columns: 1fr;
+      .carousel {
         gap: 12px;
+        padding-bottom: 12px;
       }
+
+      .carousel-card { flex-basis: 86%; }
+      .carousel-hint { font-size: 0.7rem; }
+      .carousel-control { width: 32px; height: 30px; }
 
       .blog-card-content,
       .media-card-content { padding: 14px; }
@@ -1606,7 +1694,7 @@
     <div class="about-concept-card fade-in-up delay-2">
       <div class="about-lead-text">RoboCup Junior World class Soccer Infrared</div>
       <p class="about-body-text">
-        私たちは中学3年生の二人体制で活動しているRCJ開発チーム「ATOM」です。<br>
+        私たちは学生メンバーで活動しているRCJ開発チーム「ATOM」です。<br>
         機体の3D CAD・基板の開発から、自動制御ソフトウェアプログラムまで、全てを自分たちの手で一から作っています。
       </p>
     </div>
@@ -1615,22 +1703,38 @@
     <div class="member-container">
       <div class="member-card fade-in-up delay-2">
         <img src="images/ATT-icon.jpg" alt="ATT" class="member-avatar">
-        <div class="member-name">ATT</div>
-        <div class="member-role">HARDWARE / PCB</div>
-        <div class="member-bio">ハードウェアデザイン・機体設計の全てを担当。</div>
-        <div class="member-links">
-          <a href="https://x.com/numatta_4" target="_blank" rel="noopener noreferrer" class="member-link-btn">X</a>
-          <a href="https://note.com/lucid_loris4289" target="_blank" rel="noopener noreferrer" class="member-link-btn">Note</a>
+        <div class="member-content">
+          <div class="member-name">Numata</div>
+          <div class="member-role">[キャプテン]HARDWARE / 3D CAD / PCB</div>
+          <div class="member-bio">全ハードウェア設計担当。PCB設計，3D設計を主とする。</div>
+          <div class="member-links">
+            <a href="https://x.com/numatta_4" target="_blank" rel="noopener noreferrer" class="member-link-btn">X</a>
+            <a href="https://note.com/lucid_loris4289" target="_blank" rel="noopener noreferrer" class="member-link-btn">Note</a>
+          </div>
         </div>
       </div>
 
       <div class="member-card fade-in-up delay-3">
         <img src="images/croissant-icon.png" alt="CROISSANT" class="member-avatar">
-        <div class="member-name">CROISSANT</div>
-        <div class="member-role">SOFTWARE</div>
-        <div class="member-bio">自律制御アルゴリズム・全プログラミングを担当。</div>
-        <div class="member-links">
-          <a href="https://x.com/TANAKA_9683" target="_blank" rel="noopener noreferrer" class="member-link-btn">X</a>
+        <div class="member-content">
+          <div class="member-name">CROISSANT</div>
+          <div class="member-role">[チームマネジメント]SOFTWARE / ATTACKER / DEFENDER</div>
+          <div class="member-bio">全プログラミングを担当。試合戦略等の考案も行う。</div>
+          <div class="member-links">
+            <a href="https://x.com/TANAKA_9683" target="_blank" rel="noopener noreferrer" class="member-link-btn">X</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="member-card fade-in-up delay-4">
+        <img src="images/KiKai-Unknown.jpg" alt="KiKaiのアイコン（仮）" class="member-avatar">
+        <div class="member-content">
+          <div class="member-name">KiKai</div>
+          <div class="member-role">[機体管理]HARD & SOFT / Algorithms / 機体製造・機体整備 </div>
+          <div class="member-bio">機体の構想をはじめとした、ソフトウェアアルゴリズムの考案や、機体の製造・整備を担当。</div>
+          <div class="member-links">
+             <a href="https://x.com/sakurai13scp" target="_blank" rel="noopener noreferrer" class="member-link-btn">X</a>
+          </div>
         </div>
       </div>
     </div>
@@ -1665,20 +1769,28 @@
         <div class="news-title">公式Webサイトを公開しました。</div>
       </div>
 
-      <div class="news-item">
+      <div class="news-item news-item-extra" hidden>
         <div class="news-date">2026.08.04</div>
         <div class="news-tag">Results</div>
         <div class="news-title">電気物理部部内大会SUMMER 2026で優勝しました！</div>
       </div>
     </div>
+    <button type="button" class="news-toggle-btn fade-in-up delay-3" id="JS_NEWS_TOGGLE" aria-expanded="false" onclick="toggleNews()">VIEW MORE</button>
   </section>
 
   <section id="blog">
     <h2 class="section-title fade-in-up">TEAM BLOG</h2>
     <p class="sub-text fade-in-up delay-1">活動記録・技術公開を行います。</p>
 
-    <div class="blog-grid fade-in-up delay-2">
-      <a href="blog/blog-02.html" class="blog-card">
+    <div class="carousel-toolbar fade-in-up delay-2">
+      <p class="carousel-hint">横にスワイプして記事を見る</p>
+      <div class="carousel-controls">
+        <button class="carousel-control" type="button" onclick="scrollCarousel('JS_BLOG_CAROUSEL', -1)" aria-label="前の記事を見る">←</button>
+        <button class="carousel-control" type="button" onclick="scrollCarousel('JS_BLOG_CAROUSEL', 1)" aria-label="次の記事を見る">→</button>
+      </div>
+    </div>
+    <div class="carousel fade-in-up delay-2" id="JS_BLOG_CAROUSEL" tabindex="0" aria-label="チームブログ">
+      <a href="blog/blog-02.html" class="blog-card carousel-card">
         <img src="blog/blog-images/Kita2026big.jpg" alt="北九州オープン2026の会場写真" loading="lazy">
         <div class="blog-card-content">
           <div class="blog-card-date">2026.08.11</div>
@@ -1686,13 +1798,21 @@
           <p class="blog-card-excerpt">北九州オープンでの結果と、次の大会に向けた開発について。</p>
         </div>
       </a>
-      <a href="blog/blog-01.html" class="blog-card">
+      <a href="blog/blog-01.html" class="blog-card carousel-card">
         <img src="blog/blog-images/HomePageimage.png" alt="Munako ATOMチームサイトの画面" loading="lazy">
         <div class="blog-card-content">
           <div class="blog-card-date">2026.08.08</div>
           <h3 class="blog-card-title">チームサイトV1.0が完成しました！</h3>
           <p class="blog-card-excerpt">活動記録・技術公開・SNSをつなぐ公式サイトを公開しました。</p>
         </div>
+
+      <a href="blog/blog-01.html" class="blog-card carousel-card">
+        <img src="blog/blog-images/HomePageimage.png" alt="Munako ATOMチームサイトの画面" loading="lazy">
+        <div class="blog-card-content">
+          <div class="blog-card-date">2026.09.01</div>
+          <h3 class="blog-card-title">新メンバー登場！</h3>
+          <p class="blog-card-excerpt">KiKaiが、ATOMのハード兼ソフトとしてチームに所属することになりました。</p>
+        </div>  
       </a>
     </div>
   </section>
@@ -1701,26 +1821,33 @@
     <h2 class="section-title fade-in-up">MEDIA</h2>
     <p class="sub-text fade-in-up delay-1">チームの活動ギャラリーです。</p>
 
-    <div class="media-grid fade-in-up delay-2">
-      <article class="media-card">
+    <div class="carousel-toolbar fade-in-up delay-2">
+      <p class="carousel-hint">横にスワイプしてギャラリーを見る</p>
+      <div class="carousel-controls">
+        <button class="carousel-control" type="button" onclick="scrollCarousel('JS_MEDIA_CAROUSEL', -1)" aria-label="前の画像を見る">←</button>
+        <button class="carousel-control" type="button" onclick="scrollCarousel('JS_MEDIA_CAROUSEL', 1)" aria-label="次の画像を見る">→</button>
+      </div>
+    </div>
+    <div class="carousel fade-in-up delay-2" id="JS_MEDIA_CAROUSEL" tabindex="0" aria-label="チームギャラリー">
+      <article class="media-card carousel-card">
         <button class="media-image-button" type="button" onclick="openLightbox('media-images/post001.png')" aria-label="2027シーズンコンセプト機「DALTON_MAX」を拡大表示">
           <img src="media-images/post001.png" alt="2027シーズンコンセプト機 DALTON_MAX" loading="lazy">
         </button>
         <div class="media-card-content">2027シーズンコンセプト機「DALTON_MAX」</div>
       </article>
-      <article class="media-card">
+      <article class="media-card carousel-card">
         <button class="media-image-button" type="button" onclick="openLightbox('media-images/post002.png')" aria-label="DALTON_MAX_v1の解体図を拡大表示">
           <img src="media-images/post002.png" alt="DALTON_MAX_v1 解体図" loading="lazy">
         </button>
         <div class="media-card-content">「DALTON_MAX_v1」解体図</div>
       </article>
-      <article class="media-card">
+      <article class="media-card carousel-card">
         <button class="media-image-button" type="button" onclick="openLightbox('media-images/post004.PNG')" aria-label="Design logを拡大表示">
           <img src="media-images/post004.PNG" alt="2024年8月から2026年8月までのDesign log" loading="lazy">
         </button>
         <div class="media-card-content">2024.8〜2026.8 Design log</div>
       </article>
-      <article class="media-card">
+      <article class="media-card carousel-card">
         <button class="media-image-button" type="button" onclick="openLightbox('media-images/post005.PNG')" aria-label="Power Supply Boardを拡大表示">
           <img src="media-images/post005.PNG" alt="Power Supply Board V1.0" loading="lazy">
         </button>
@@ -1943,6 +2070,37 @@
 
       document.querySelectorAll('.fade-in-up').forEach(el => observer.observe(el));
     });
+
+    let newsScrollPosition = 0;
+
+    function toggleNews() {
+      const extraItems = document.querySelectorAll('.news-item-extra');
+      const button = document.getElementById('JS_NEWS_TOGGLE');
+      const isExpanded = button.getAttribute('aria-expanded') === 'true';
+
+      if (isExpanded) {
+        extraItems.forEach(item => { item.hidden = true; });
+        button.setAttribute('aria-expanded', 'false');
+        button.textContent = 'VIEW MORE';
+        window.scrollTo({ top: newsScrollPosition, behavior: 'smooth' });
+      } else {
+        newsScrollPosition = window.scrollY;
+        extraItems.forEach(item => { item.hidden = false; });
+        button.setAttribute('aria-expanded', 'true');
+        button.textContent = 'CLOSE';
+      }
+    }
+
+    function scrollCarousel(carouselId, direction) {
+      const carousel = document.getElementById(carouselId);
+      const firstCard = carousel.querySelector('.carousel-card');
+      if (!firstCard) return;
+      const gap = Number.parseFloat(getComputedStyle(carousel).gap) || 0;
+      carousel.scrollBy({
+        left: direction * (firstCard.getBoundingClientRect().width + gap),
+        behavior: 'smooth'
+      });
+    }
 
     function toggleTheme() {
       const body = document.body;
