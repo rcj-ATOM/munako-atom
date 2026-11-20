@@ -3,7 +3,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>記事作成テンプレート - Munako ATOM</title>
+  <title>JLCPCB 発注方法-KiCad</title>
+  
+  <meta property="og:title" content="JLCPCB 発注方法-KiCad">
+  <meta property="og:description" content="JLCPCBで基板を発注する際の手順について説明します。世界的PCB EditorであるKiCadを使用">
+  <meta property="og:image" content="blog-images/blog-06/発注方法サムネイル.jpg">
+  <meta property="og:url" content="https://munako-atom.github.io/blog/blog-06.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="Munako ATOM RCJ Infrared Team">
+
   <style>
     :root {
       --bg-main: #f8fafc;
@@ -108,17 +116,50 @@
 
   <article class="blog-article">
     <a href="../index.html#blog" class="back-link">← BLOG一覧へ戻る</a>
-    <div class="article-date">公開日を入力</div>
-    <h1 class="article-title">記事タイトルを入力</h1>
+    <div class="article-date">11月20日</div>
+    <h1 class="article-title">JLCPCB 発注方法-with KiCad</h1>
 
     <div class="blog-content">
-      <p>ここに記事の導入を書きます。公開前に、このテンプレートを複製してタイトル・日付・本文・画像を更新してください。</p>
+      <p>JLCPCB で基板を発注する際の手順について説明します。世界的PCB EditorであるKiCadを使用するとより簡単に発注することができます。</p>
 
-      <h3>見出しを入力</h3>
-      <p>本文を段落ごとに <code>&lt;p&gt;</code> で囲んで追加します。画像を入れる場合は、実在する画像ファイルへのパスと内容を説明する alt テキストを設定してください。</p>
+      <h3>1-プラグインのインストール</h3>
+      <p>KiCadには、JLCPCBへの発注専用プラグインが用意されています。これを使用することで非常に簡単に発注ができます。</p>
+      <strong>↓プラグイン&コンテンツマネージャーを開く</strong>
+      <img class="blog-image" src="blog-images/blog-06/プラグイン&コンテンツマネージャー.png" alt="プラグイン&コンテンツマネージャーを開く">
+      <strong>
+        ↓JLCと検索 ▶︎ JLCPCBファブリケーケーションツールキットをインストール
+        <img class="blog-image" src="blog-images/blog-06/JLC PCB fabrication toolkit.png" alt="JLCと検索してインストール">
+      </strong>
+      <p>このプラグインは、「Benny Megidish」氏が開発したもので、GitHub上で公開されています。手動でのダウンロードもできます。下のリンクからGitHubリポジトリを閲覧できます。</p>
+      <a href="https://github.com/bennymeg/Fabrication-Toolkit" target="_blank"><b>GitHub.com</b></a>
 
-      </div>
+      <h3>2-Generate Zip</h3>
+      <p>インストール完了したら、PCBエディターを開きます。エディタを開く前にKiCad自体を再起動すると確実です。</p>
+      <b>↓上のバーに発注用のアイコンが出てくるのでクリックします。</b>      
+        <details>
+        <summary>(トグルです。)アイコンが表示されない人へ。(for KiCad10.xx user)</summary>
+          <p>私は、はじめプラグインアイコンが表示されませんでした。ChatGPTの協力のもと解決しましたので一つの原因として共有します。</p>
+          <p>KiCad10.xxバージョンでは外部プラグインを使用する場合、APIを有効にする必要があるようです。[設定→プラグイン→APIを有効にする　にチェック]すると、有効になります。</p>
+          <img class="blog-image" src="blog-images/blog-06/apiを有効に。.png" alt="APIを有効にする">
+          <p>しかし私は、それだけでは動きませんでした。そのあとKiCadを終了し、ターミナルから起動することでプラグインが表示されました。もし表示されない人はやってみてください。
+            これらの分野において、AIはかなりいい仕事をしてくれます。聞いてみるのもありかもですね。
+          </p>
+      </details>
+      <img class="blog-image" src="blog-images/blog-06/発注変換アイコン.png" alt="発注用のアイコン">
+      <strong>↓色々表示されるけど、そのままでいいので、Genelateを押す。</strong>
+      <img class="blog-image" src="blog-images/blog-06/JLCファイルに変換.png" alt="genelateボタン">
+      <p>すると、該当プロジェクトフォルダ内に、production_files というフォルダが作成されます。</p>
+      <h3>3-発注！！</h3>
+      <a href="https://cart.jlcpcb.com/quote?stencilLayer=2&stencilWidth=100&stencilLength=100&stencilCounts=5&plateType=1&spm=Jlcpcb.Homepage.1010" target="_blank"><b>JLCPCBの見積もりページ</b>を開き、</a>
+      <b>↓Add garber fileを押して、プラグインで生成したzipを開く</b>
+      <img class="blog-image" src="blog-images/blog-06/add garber file.png" alt="ガーバーファイルインポート” ">
+      <p>すると、JLCPCBの見積もりページに自動でPCBデータがインポートされます。あとは、数量やオプションを選択して、見積もりを確認し、発注することができます。</p>
+
+      <h2>以上！！</h2>
+      <p>なんと簡単なことでしょう。このプラグインは現在の私の使用バージョンKiCad10.08までの対応は保証できます。</p>
+      <p>ぜひKiCadとプラグインを使ってより良い開発をしましょう！！</p>
+    </div>
+    <p>written by Munako ATOM RCJ Infrared Team</p>
   </article>
-
 </body>
 </html>
